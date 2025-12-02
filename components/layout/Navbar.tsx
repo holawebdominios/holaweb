@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -103,16 +104,16 @@ const Navbar = () => {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={cn(
-                  "text-2xl font-bold transition-all duration-300 relative",
-                  isScrolled ? "text-white" : "text-[#13314c]"
-                )}
+                className="relative"
               >
-                <h3 className="text-2xl font-bold mb-4">
-                  👋 Hola
-                  <br />
-                  Web
-                </h3>
+                <Image
+                  src="/images/logo.png"
+                  alt="Hola Web"
+                  width={120}
+                  height={40}
+                  className="h-8 sm:h-10 w-auto"
+                  priority
+                />
                 <motion.span
                   className="absolute inset-0 bg-gradient-to-r from-[#ff9900] to-[#ff6600] opacity-0 group-hover:opacity-20 blur-xl"
                   animate={{ opacity: [0, 0.2, 0] }}
