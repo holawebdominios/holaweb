@@ -3,16 +3,45 @@
 import { motion } from 'framer-motion';
 import { integralCF } from '@/styles/fonts';
 import { cn } from '@/lib/utils';
-import { Check, Star } from 'lucide-react';
-import Link from 'next/link';
-import { plans } from '@/config/plans';
+import { Star, Zap, Shield, Headphones } from 'lucide-react';
+
+const plans = [
+  {
+    id: 'mensual',
+    name: 'Mensual',
+    price: 24999,
+    originalPrice: null,
+    discount: 0,
+    highlighted: false,
+    badge: null,
+    features: ['Soporte prioritario', 'Registro a tu nombre', 'Renovación automática'],
+  },
+  {
+    id: 'anual',
+    name: 'Anual Lanzamiento',
+    price: 14999,
+    originalPrice: 24999,
+    discount: 40,
+    highlighted: true,
+    badge: 'MÁS POPULAR',
+    features: ['Soporte prioritario', 'Registro a tu nombre', 'Ahorrás 40%'],
+  },
+  {
+    id: '24meses',
+    name: 'Plan 24 Meses',
+    price: 9999,
+    originalPrice: 24999,
+    discount: 60,
+    highlighted: false,
+    badge: 'MEJOR PRECIO',
+    features: ['Soporte prioritario', 'Registro a tu nombre', 'Ahorrás 60%'],
+  },
+];
 
 export default function FeaturedPlansSection() {
-  const featuredPlans = plans.filter(p => p.highlighted || plans.indexOf(p) < 3);
-
   return (
-    <section className="py-20 bg-white relative overflow-hidden">
-      <div className="absolute inset-0 gradient-mesh opacity-20" />
+    <section id="planes" className="py-20 bg-white relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white" />
       
       <div className="max-w-7xl mx-auto px-4 lg:px-8 relative z-10">
         <motion.div
@@ -24,114 +53,98 @@ export default function FeaturedPlansSection() {
         >
           <h2 className={cn([
             integralCF.className,
-            "text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6"
+            "text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-text-primary mb-4"
           ])}>
             Planes y Precios
           </h2>
-          <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-3xl mx-auto">
-            Elegí el plan perfecto para tus necesidades
+          <p className="text-sm sm:text-base lg:text-lg text-text-secondary max-w-2xl mx-auto">
+            Inversión simple y transparente para tu dominio .AR
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {featuredPlans.map((plan, index) => (
+          {plans.map((plan, index) => (
             <motion.div
               key={plan.id}
-              initial={{ opacity: 0, y: 30, scale: 0.9 }}
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
               whileHover={{ 
-                y: -10,
-                scale: 1.02,
+                y: -8,
                 transition: { duration: 0.3 }
               }}
               className={cn(
-                "relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-2",
+                "relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300",
                 plan.highlighted 
-                  ? "border-[#ff9900]" 
-                  : "border-gray-100"
+                  ? "border-3 border-brand-yellow ring-4 ring-brand-yellow/10" 
+                  : "border border-gray-200"
               )}
             >
+              {/* Badge */}
               {plan.badge && (
-                <div className={cn(
-                  "absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full text-white font-semibold text-sm shadow-lg flex items-center gap-2",
-                  plan.badgeColor
-                )}>
-                  <Star className="h-4 w-4" />
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-brand-yellow text-gray-900 rounded-full text-xs font-bold shadow-lg flex items-center gap-1.5">
+                  <Zap className="h-3.5 w-3.5" />
                   {plan.badge}
                 </div>
               )}
 
-              <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
-                <p className="text-sm text-gray-600 mb-4">{plan.tagline}</p>
+              {/* Header */}
+              <div className="text-center mb-6 pt-2">
+                <h3 className="text-xl font-bold text-text-primary mb-3">
+                  {plan.name}
+                </h3>
                 
-                <div className="mb-4">
-                  <span className="text-4xl font-bold text-[#13314c]">
-                    ${(plan.pricing.monthly / 1000).toFixed(1)}k
-                  </span>
-                  <span className="text-gray-600">/mes</span>
+                {/* Precio */}
+                <div className="mb-3">
+                  {plan.originalPrice && (
+                    <div className="text-sm text-text-secondary line-through mb-1">
+                      ${plan.originalPrice.toLocaleString()}
+                    </div>
+                  )}
+                  <div className="flex items-baseline justify-center gap-1">
+                    <span className="text-5xl font-bold text-brand-blue">
+                      ${plan.price.toLocaleString()}
+                    </span>
+                    <span className="text-text-secondary text-sm">/mes</span>
+                  </div>
                 </div>
                 
-                {plan.pricing.discount && (
-                  <div className="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
-                    {plan.pricing.discount.label} anual
+                {/* Descuento */}
+                {plan.discount > 0 && (
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-50 text-green-700 rounded-full text-sm font-bold">
+                    <Star className="h-4 w-4" />
+                    Ahorrás {plan.discount}%
                   </div>
                 )}
               </div>
 
-              <ul className="space-y-3 mb-8">
-                {plan.features.slice(0, 5).map((feature) => (
-                  <li key={feature.id} className="flex items-start gap-3">
-                    <Check className={cn(
-                      "h-5 w-5 flex-shrink-0 mt-0.5",
-                      feature.included ? "text-green-600" : "text-gray-300"
-                    )} />
-                    <span className={cn(
-                      "text-sm",
-                      feature.included ? "text-gray-700" : "text-gray-400"
-                    )}>
-                      {feature.label}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              <Link href={plan.ctaAction || '/contacto'}>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={cn(
-                    "w-full py-3 px-6 rounded-xl font-semibold transition-all duration-300",
-                    plan.highlighted
-                      ? "bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white shadow-lg hover:shadow-xl"
-                      : "bg-[#13314c]/10 text-[#13314c] hover:bg-[#13314c]/20"
-                  )}
-                >
-                  {plan.ctaLabel}
-                </motion.button>
-              </Link>
+              {/* Beneficios Clave (sin lista) */}
+              <div className="space-y-3 pt-6 border-t border-gray-100">
+                <div className="flex items-center justify-center gap-2 text-sm text-text-primary">
+                  <Shield className="h-4 w-4 text-brand-blue" />
+                  <span className="font-medium">Registro a tu nombre</span>
+                </div>
+                <div className="flex items-center justify-center gap-2 text-sm text-text-primary">
+                  <Headphones className="h-4 w-4 text-brand-blue" />
+                  <span className="font-medium">Soporte incluido</span>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
 
+        {/* Nota al pie */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
           className="text-center mt-12"
         >
-          <Link href="/planes">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="text-[#ff9900] font-semibold hover:text-[#ff6600] transition-colors"
-            >
-              Ver comparación completa de planes →
-            </motion.button>
-          </Link>
+          <p className="text-sm text-gray-500">
+            ✓ Sin costos ocultos • ✓ Renovación automática • ✓ Cancelá cuando quieras
+          </p>
         </motion.div>
       </div>
     </section>

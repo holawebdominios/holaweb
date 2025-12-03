@@ -92,7 +92,7 @@ export default function QuickDomainCheckSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-block mb-4 px-4 py-2 bg-gradient-to-r from-[#ff9900]/10 to-[#ff6600]/10 rounded-full border border-[#ff9900]/20"
+            className="inline-block mb-4 px-4 py-2 bg-gradient-to-r from-[#ff9900]/10 to-[#F6A823]/10 rounded-full border border-[#ff9900]/20"
           >
             <span className="text-[#ff9900] font-semibold text-sm">
               🚀 Verificación Instantánea de Disponibilidad
@@ -136,7 +136,7 @@ export default function QuickDomainCheckSection() {
               whileTap={{ scale: 0.95 }}
               onClick={handleCheck}
               disabled={isChecking || !domain.trim()}
-              className="px-6 sm:px-8 py-4 bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-[#ff9900]/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 whitespace-nowrap"
+              className="px-6 sm:px-8 py-4 bg-gradient-to-r from-[#ff9900] to-[#F6A823] text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-[#ff9900]/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 whitespace-nowrap"
             >
               {isChecking ? (
                 <>
@@ -188,7 +188,7 @@ export default function QuickDomainCheckSection() {
                         <motion.button
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          className="px-4 py-2 bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white font-semibold rounded-lg hover:shadow-lg transition-all text-sm flex items-center gap-2"
+                          className="px-4 py-2 bg-gradient-to-r from-[#ff9900] to-[#F6A823] text-white font-semibold rounded-lg hover:shadow-lg transition-all text-sm flex items-center gap-2"
                         >
                           Adquirir
                           <ArrowRight className="h-4 w-4" />
@@ -204,7 +204,7 @@ export default function QuickDomainCheckSection() {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="px-6 py-2 text-[#ff9900] font-semibold hover:text-[#ff6600] transition-colors text-sm flex items-center gap-2"
+                    className="px-6 py-2 text-[#ff9900] font-semibold hover:text-[#F6A823] transition-colors text-sm flex items-center gap-2"
                   >
                     Ver verificador completo
                     <ArrowRight className="h-4 w-4" />

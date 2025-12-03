@@ -58,7 +58,7 @@ function FailureContent() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-[#0066CC] to-[#ff6600] text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
               >
                 <ArrowLeft className="h-5 w-5" />
                 Intentar Nuevamente
@@ -80,7 +80,7 @@ function FailureContent() {
           {/* Contacto */}
           <div className="mt-8 text-sm text-gray-600">
             ¿Necesitás ayuda?{' '}
-            <Link href="/contacto" className="text-[#ff9900] hover:text-[#ff6600] font-semibold">
+            <Link href="/contacto" className="text-[#0066CC] hover:text-[#ff6600] font-semibold">
               Contactanos
             </Link>
           </div>
@@ -94,7 +94,7 @@ export default function CheckoutFailurePage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-12 w-12 text-[#ff9900] animate-spin" />
+        <Loader2 className="h-12 w-12 text-[#0066CC] animate-spin" />
       </div>
     }>
       <FailureContent />

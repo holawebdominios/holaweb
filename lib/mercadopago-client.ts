@@ -11,7 +11,7 @@ export const mercadoPagoClient = new MercadoPagoConfig({
   accessToken: accessToken || 'TEST-demo-token',
   options: {
     timeout: 5000,
-    idempotencyKey: 'hola-web', // TODO: Ajustar según necesidad
+    idempotencyKey: 'hola-empresa',
   }
 });
 

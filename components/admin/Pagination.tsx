@@ -31,7 +31,7 @@ export default function Pagination({
         <select
           value={pageSize}
           onChange={(e) => onPageSizeChange(Number(e.target.value))}
-          className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#ff9900] focus:border-transparent outline-none"
+          className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#FFCC4D] focus:border-transparent outline-none"
         >
           <option value={10}>10</option>
           <option value={25}>25</option>
@@ -83,7 +83,7 @@ export default function Pagination({
                   className={cn(
                     'px-3 py-1.5 rounded-lg text-sm font-medium transition-colors',
                     currentPage === pageNumber
-                      ? 'bg-[#ff9900] text-white'
+                      ? 'bg-[#FFCC4D] text-white'
                       : 'text-gray-700 hover:bg-gray-100'
                   )}
                 >

@@ -35,9 +35,9 @@ function CheckoutContent() {
                        window.location.hostname === 'localhost';
 
   const plans = {
-    'PERIOD_1_MONTH': { period: '1 mes', price: 5900, discount: 0 },
-    'PERIOD_1_YEAR': { period: '12 meses', price: 5900 * 12, discount: 0 },
-    'PERIOD_2_YEARS': { period: '24 meses', price: 5900 * 24, discount: 0 },
+    'PERIOD_1_MONTH': { period: 'Mensual', price: 24999, originalPrice: null, discount: 0 },
+    'PERIOD_1_YEAR': { period: 'Anual Lanzamiento', price: 14999, originalPrice: 24999, discount: 40 },
+    'PERIOD_2_YEARS': { period: 'Plan 24 Meses', price: 9999, originalPrice: 24999, discount: 60 },
   };
 
   const selectedPlanData = plans[selectedPlan];
@@ -242,7 +242,7 @@ function CheckoutContent() {
                 className="bg-white border border-gray-200 rounded-2xl p-6"
               >
                 <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-[#ff9900]" />
+                  <Calendar className="h-5 w-5 text-brand-yellow" />
                   Seleccioná el Período
                 </h3>
                 
@@ -253,7 +253,7 @@ function CheckoutContent() {
                       className={cn(
                         "flex items-center justify-between p-4 border-2 rounded-xl cursor-pointer transition-all",
                         selectedPlan === key
-                          ? "border-[#ff9900] bg-[#ff9900]/5"
+                          ? "border-brand-orange bg-brand-orange/5 shadow-md"
                           : "border-gray-200 hover:border-gray-300"
                       )}
                     >
@@ -264,18 +264,28 @@ function CheckoutContent() {
                           value={key}
                           checked={selectedPlan === key}
                           onChange={(e) => setSelectedPlan(e.target.value as any)}
-                          className="h-4 w-4 text-[#ff9900]"
+                          className="h-4 w-4 text-brand-orange"
                         />
                         <div>
-                          <p className="font-semibold text-gray-900">{plan.period}</p>
-                          <p className="text-sm text-gray-600">
-                            ${(5900).toLocaleString()}/mes
-                          </p>
+                          <p className="font-bold text-gray-900">{plan.period}</p>
+                          {plan.originalPrice && (
+                            <p className="text-xs text-gray-400 line-through">
+                              ${plan.originalPrice.toLocaleString()}
+                            </p>
+                          )}
+                          {plan.discount > 0 && (
+                            <p className="text-xs text-brand-success font-semibold">
+                              Ahorrás {plan.discount}%
+                            </p>
+                          )}
                         </div>
                       </div>
-                      <p className="text-xl font-bold text-gray-900">
-                        ${plan.price.toLocaleString()}
-                      </p>
+                      <div className="text-right">
+                        <p className="text-2xl font-bold text-brand-blue">
+                          ${plan.price.toLocaleString()}
+                        </p>
+                        <p className="text-xs text-gray-500">/mes</p>
+                      </div>
                     </label>
                   ))}
                 </div>
@@ -289,7 +299,7 @@ function CheckoutContent() {
                 className="bg-white border border-gray-200 rounded-2xl p-6"
               >
                 <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <User className="h-5 w-5 text-[#ff9900]" />
+                  <User className="h-5 w-5 text-brand-yellow" />
                   Tus Datos
                 </h3>
                 
@@ -305,7 +315,7 @@ function CheckoutContent() {
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ff9900] focus:border-transparent outline-none transition"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none transition"
                         placeholder="Juan Pérez"
                       />
                     </div>
@@ -322,7 +332,7 @@ function CheckoutContent() {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ff9900] focus:border-transparent outline-none transition"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none transition"
                         placeholder="tu@email.com"
                       />
                     </div>
@@ -339,7 +349,7 @@ function CheckoutContent() {
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ff9900] focus:border-transparent outline-none transition"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none transition"
                         placeholder="+54 11 1234-5678"
                       />
                     </div>
@@ -355,7 +365,7 @@ function CheckoutContent() {
                         type="text"
                         value={formData.company}
                         onChange={(e) => setFormData({...formData, company: e.target.value})}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ff9900] focus:border-transparent outline-none transition"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none transition"
                         placeholder="Mi Empresa SA"
                       />
                     </div>
@@ -369,7 +379,7 @@ function CheckoutContent() {
                       type="text"
                       value={formData.cuit}
                       onChange={(e) => setFormData({...formData, cuit: e.target.value})}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ff9900] focus:border-transparent outline-none transition"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none transition"
                       placeholder="20-12345678-9"
                     />
                   </div>
@@ -383,7 +393,7 @@ function CheckoutContent() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   disabled={isProcessing || isSimulating}
-                  className="w-full bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-[#ff9900]/50 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-brand-yellow hover:bg-brand-yellowDark text-gray-900 py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-brand-yellow/30 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isProcessing ? (
                     <>
@@ -420,7 +430,7 @@ function CheckoutContent() {
               
               <div className="space-y-4 mb-6">
                 <div className="flex items-start gap-3 pb-4 border-b border-gray-100">
-                  <Globe className="h-5 w-5 text-[#ff9900] mt-0.5" />
+                  <Globe className="h-5 w-5 text-brand-yellow mt-0.5" />
                   <div className="flex-1">
                     <p className="font-semibold text-gray-900">{domain}</p>
                     <p className="text-sm text-gray-600">{selectedPlanData.period}</p>
@@ -433,14 +443,22 @@ function CheckoutContent() {
                     <span>Total</span>
                     <span className="font-semibold">${total.toLocaleString()}</span>
                   </div>
-                  <div className="text-xs text-gray-500">
-                    {`$${(5900).toLocaleString()}/mes durante ${selectedPlanData.period}`}
+                  {selectedPlanData.originalPrice && (
+                    <div className="text-xs text-gray-400 line-through">
+                      Precio regular: ${selectedPlanData.originalPrice.toLocaleString()}/mes
+                    </div>
+                  )}
+                  <div className="text-xs text-brand-success font-medium">
+                    {selectedPlanData.discount > 0 
+                      ? `✓ Ahorrás ${selectedPlanData.discount}% con ${selectedPlanData.period}`
+                      : `Suscripción ${selectedPlanData.period}`
+                    }
                   </div>
                 </div>
 
                 <div className="flex justify-between items-center py-4">
                   <span className="text-lg font-bold text-gray-900">Total</span>
-                  <span className="text-2xl font-bold text-[#ff9900]">${total.toLocaleString()}</span>
+                  <span className="text-2xl font-bold text-brand-yellow">${total.toLocaleString()}</span>
                 </div>
               </div>
 
@@ -453,7 +471,7 @@ function CheckoutContent() {
                   whileTap={{ scale: 0.98 }}
                   onClick={handleSubmit}
                   disabled={isProcessing || isSimulating}
-                  className="w-full bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-[#ff9900]/50 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-brand-yellow hover:bg-brand-yellowDark text-gray-900 py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-brand-yellow/30 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isProcessing ? (
                     <>

@@ -150,7 +150,7 @@ export default function AdminOrderDetailPage({ params }: { params: { id: string 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="h-8 w-8 animate-spin text-[#ff9900]" />
+        <Loader2 className="h-8 w-8 animate-spin text-[#0066CC]" />
       </div>
     );
   }
@@ -161,7 +161,7 @@ export default function AdminOrderDetailPage({ params }: { params: { id: string 
         <p className="text-gray-500">Orden no encontrada</p>
         <Link
           href="/admin/orders"
-          className="mt-4 inline-block text-[#ff9900] hover:text-[#ff8800]"
+          className="mt-4 inline-block text-[#0066CC] hover:text-[#ff8800]"
         >
           ← Volver a órdenes
         </Link>
@@ -195,7 +195,7 @@ export default function AdminOrderDetailPage({ params }: { params: { id: string 
           className="lg:col-span-2 bg-white rounded-xl p-6 shadow-sm border border-gray-100"
         >
           <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-            <ShoppingCart className="h-5 w-5 text-[#ff9900]" />
+            <ShoppingCart className="h-5 w-5 text-[#0066CC]" />
             Información de la Orden
           </h2>
 
@@ -213,7 +213,7 @@ export default function AdminOrderDetailPage({ params }: { params: { id: string 
             <div>
               <p className="text-sm text-gray-500 mb-1">Dominio</p>
               <div className="flex items-center gap-2">
-                <Globe className="h-4 w-4 text-[#ff9900]" />
+                <Globe className="h-4 w-4 text-[#0066CC]" />
                 <p className="font-semibold text-gray-900">{order.domain}</p>
               </div>
             </div>
@@ -286,7 +286,7 @@ export default function AdminOrderDetailPage({ params }: { params: { id: string 
           {/* Cliente */}
           <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
             <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <User className="h-5 w-5 text-[#ff9900]" />
+              <User className="h-5 w-5 text-[#0066CC]" />
               Cliente
             </h2>
 
@@ -345,7 +345,7 @@ export default function AdminOrderDetailPage({ params }: { params: { id: string 
                 <div className="pt-4 border-t border-gray-200">
                   <Link
                     href={`/admin/users/${userData.email}`}
-                    className="text-sm text-[#ff9900] hover:text-[#ff8800] flex items-center gap-1"
+                    className="text-sm text-[#0066CC] hover:text-[#ff8800] flex items-center gap-1"
                   >
                     Ver perfil completo <ExternalLink className="h-3 w-3" />
                   </Link>
@@ -358,7 +358,7 @@ export default function AdminOrderDetailPage({ params }: { params: { id: string 
           {domainData && (
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
               <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <Globe className="h-5 w-5 text-[#ff9900]" />
+                <Globe className="h-5 w-5 text-[#0066CC]" />
                 Dominio
               </h2>
 

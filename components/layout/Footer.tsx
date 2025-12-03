@@ -1,10 +1,9 @@
 "use client";
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
-
 import { usePathname } from 'next/navigation';
+import Logo from '@/components/ui/Logo';
 
 const Footer = () => {
   const pathname = usePathname();
@@ -35,41 +34,35 @@ const Footer = () => {
   }
 
   return (
-    <footer className="text-white" style={{ backgroundColor: '#13314c' }}>
+    <footer className="bg-brand-blue text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="mb-4">
-              <Image
-                src="/images/logo.png"
-                alt="Hola Empresa"
-                width={150}
-                height={50}
-                className="h-10 w-auto"
-              />
+              <Logo variant="white" size="md" />
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6">
+            <p className="text-gray-300 text-sm leading-relaxed mb-6">
               Verificación y gestión profesional de dominios argentinos con tecnología RDAP.
             </p>
             <div className="flex space-x-4">
               <a
                 href="#"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-300 hover:text-brand-yellow transition-colors"
                 aria-label="Facebook"
               >
                 <Facebook className="h-5 w-5" />
               </a>
               <a
                 href="#"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-300 hover:text-brand-yellow transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram className="h-5 w-5" />
               </a>
               <a
                 href="#"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-300 hover:text-brand-yellow transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="h-5 w-5" />
@@ -85,7 +78,7 @@ const Footer = () => {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-white text-sm transition-colors"
+                    className="text-gray-300 hover:text-brand-yellow text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -102,7 +95,7 @@ const Footer = () => {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-white text-sm transition-colors"
+                    className="text-gray-300 hover:text-brand-yellow text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -118,7 +111,7 @@ const Footer = () => {
               <li>
                 <a
                   href="tel:+541112345678"
-                  className="flex items-start space-x-3 text-gray-400 hover:text-white text-sm transition-colors"
+                  className="flex items-start space-x-3 text-gray-300 hover:text-brand-yellow text-sm transition-colors"
                 >
                   <Phone className="h-5 w-5 mt-0.5 flex-shrink-0" />
                   <span>+54 11 3497-6239</span>
@@ -126,15 +119,15 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="mailto:info@umavial.com"
-                  className="flex items-start space-x-3 text-gray-400 hover:text-white text-sm transition-colors"
+                  href="mailto:holawebdominios@gmail.com"
+                  className="flex items-start space-x-3 text-gray-300 hover:text-brand-yellow text-sm transition-colors"
                 >
                   <Mail className="h-5 w-5 mt-0.5 flex-shrink-0" />
-                  <span>info@umavial.com</span>
+                  <span>holawebdominios@gmail.com</span>
                 </a>
               </li>
               <li>
-                <div className="flex items-start space-x-3 text-gray-400 text-sm">
+                <div className="flex items-start space-x-3 text-gray-300 text-sm">
                   <MapPin className="h-5 w-5 mt-0.5 flex-shrink-0" />
                   <span>Buenos Aires, Argentina</span>
                 </div>
@@ -146,14 +139,14 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-gray-400 text-sm">
-              © {currentYear} UMAVIAL. Todos los derechos reservados.
+            <p className="text-gray-300 text-sm">
+              © {currentYear} Hola Empresa. Todos los derechos reservados.
             </p>
-            <div className="flex space-x-6 text-sm text-gray-400">
-              <Link href="/privacidad" className="hover:text-white transition-colors">
+            <div className="flex space-x-6 text-sm text-gray-300">
+              <Link href="/privacidad" className="hover:text-brand-yellow transition-colors">
                 Privacidad
               </Link>
-              <Link href="/terminos" className="hover:text-white transition-colors">
+              <Link href="/terminos" className="hover:text-brand-yellow transition-colors">
                 Términos
               </Link>
             </div>

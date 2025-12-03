@@ -23,7 +23,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin text-[#ff9900] mx-auto mb-4" />
+          <Loader2 className="h-8 w-8 animate-spin text-[#0066CC] mx-auto mb-4" />
           <p className="text-gray-600">Verificando acceso...</p>
         </div>
       </div>
@@ -49,7 +49,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
           </p>
           <button
             onClick={() => router.push('/')}
-            className="px-6 py-3 bg-[#ff9900] text-white rounded-lg hover:bg-[#ff8800] transition-colors"
+            className="px-6 py-3 bg-[#0066CC] text-white rounded-lg hover:bg-[#ff8800] transition-colors"
           >
             Volver al Inicio
           </button>

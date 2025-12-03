@@ -64,8 +64,8 @@ export default function BenefitsSection() {
                 }}
                 className="group"
               >
-                <div className="relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#ff9900]/30 h-full">
-                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#ff9900]/0 to-[#ff6600]/0 group-hover:from-[#ff9900]/10 group-hover:to-[#ff6600]/5 transition-all duration-500 opacity-0 group-hover:opacity-100" />
+                <div className="relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#0066CC]/30 h-full">
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#0066CC]/0 to-[#0066CC]/0 group-hover:from-[#0066CC]/10 group-hover:to-[#0066CC]/5 transition-all duration-500 opacity-0 group-hover:opacity-100" />
                   
                   <div className="relative z-10">
                     <motion.div
@@ -79,7 +79,7 @@ export default function BenefitsSection() {
                       <Icon className={`h-8 w-8 ${benefit.color} relative z-10`} />
                     </motion.div>
                     
-                    <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-[#ff9900] transition-colors duration-300">
+                    <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-[#0066CC] transition-colors duration-300">
                       {benefit.title}
                     </h3>
                     

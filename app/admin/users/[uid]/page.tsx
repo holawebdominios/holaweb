@@ -161,7 +161,7 @@ export default function AdminUserDetailPage({ params }: { params: { uid: string 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="h-8 w-8 animate-spin text-[#ff9900]" />
+        <Loader2 className="h-8 w-8 animate-spin text-[#0066CC]" />
       </div>
     );
   }
@@ -172,7 +172,7 @@ export default function AdminUserDetailPage({ params }: { params: { uid: string 
         <p className="text-gray-500">Usuario no encontrado</p>
         <Link
           href="/admin/users"
-          className="mt-4 inline-block text-[#ff9900] hover:text-[#ff8800]"
+          className="mt-4 inline-block text-[#0066CC] hover:text-[#ff8800]"
         >
           ← Volver a usuarios
         </Link>
@@ -271,7 +271,7 @@ export default function AdminUserDetailPage({ params }: { params: { uid: string 
           className="bg-white rounded-xl p-6 shadow-sm border border-gray-100"
         >
           <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-            <User className="h-5 w-5 text-[#ff9900]" />
+            <User className="h-5 w-5 text-[#0066CC]" />
             Información Personal
           </h2>
 
@@ -334,7 +334,7 @@ export default function AdminUserDetailPage({ params }: { params: { uid: string 
             className="bg-white rounded-xl p-6 shadow-sm border border-gray-100"
           >
             <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <ShoppingCart className="h-5 w-5 text-[#ff9900]" />
+              <ShoppingCart className="h-5 w-5 text-[#0066CC]" />
               Órdenes ({orders.length})
             </h2>
 
@@ -346,7 +346,7 @@ export default function AdminUserDetailPage({ params }: { params: { uid: string 
                   <Link
                     key={order.id}
                     href={`/admin/orders/${order.id}`}
-                    className="block p-4 border border-gray-200 rounded-lg hover:border-[#ff9900] hover:shadow-md transition-all"
+                    className="block p-4 border border-gray-200 rounded-lg hover:border-[#0066CC] hover:shadow-md transition-all"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
@@ -375,7 +375,7 @@ export default function AdminUserDetailPage({ params }: { params: { uid: string 
             className="bg-white rounded-xl p-6 shadow-sm border border-gray-100"
           >
             <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <Globe className="h-5 w-5 text-[#ff9900]" />
+              <Globe className="h-5 w-5 text-[#0066CC]" />
               Dominios ({domains.length})
             </h2>
 

@@ -53,7 +53,7 @@ const StatCard = ({
   suffix = '', 
   label, 
   delay = 0,
-  color = '#ff9900'
+  color = '#FFCC4D'
 }: { 
   icon: any; 
   value: number; 
@@ -171,10 +171,10 @@ const StatCard = ({
     <div ref={ref} className="group relative">
       <div 
         ref={cardRef}
-        className="relative bg-white/80 backdrop-blur-sm rounded-xl p-4 sm:p-5 md:p-6 shadow-md hover:shadow-lg transition-shadow duration-300 border border-white/50 hover:border-[#ff9900]/30 h-full"
+        className="relative bg-white/80 backdrop-blur-sm rounded-xl p-4 sm:p-5 md:p-6 shadow-md hover:shadow-lg transition-shadow duration-300 border border-white/50 hover:border-[#FFCC4D]/30 h-full"
       >
         {/* Efecto de brillo en hover */}
-        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[#ff9900]/0 to-[#ff6600]/0 group-hover:from-[#ff9900]/10 group-hover:to-[#ff6600]/5 transition-all duration-500 opacity-0 group-hover:opacity-100" />
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[#FFCC4D]/0 to-[#F6A823]/0 group-hover:from-[#FFCC4D]/10 group-hover:to-[#F6A823]/5 transition-all duration-500 opacity-0 group-hover:opacity-100" />
         
         {/* Icono con animación GSAP */}
         <div 
@@ -208,7 +208,7 @@ const StatCard = ({
         {/* Línea decorativa animada */}
         <div
           ref={lineRef}
-          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#ff9900] to-[#ff6600] rounded-b-xl origin-left"
+          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#FFCC4D] to-[#F6A823] rounded-b-xl origin-left"
         />
               </div>
             </div>

@@ -146,7 +146,7 @@ export default function AdminUsersPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
-            <Users className="h-8 w-8 text-[#ff9900]" />
+            <Users className="h-8 w-8 text-[#0066CC]" />
             Usuarios
           </h1>
           <p className="text-gray-600 mt-1">
@@ -159,7 +159,7 @@ export default function AdminUsersPage() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as any)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ff9900] focus:border-transparent outline-none text-sm"
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0066CC] focus:border-transparent outline-none text-sm"
           >
             <option value="createdAt">Ordenar por: Fecha</option>
             <option value="email">Ordenar por: Email</option>
@@ -184,7 +184,7 @@ export default function AdminUsersPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Buscar por email, nombre o empresa..."
-            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ff9900] focus:border-transparent outline-none"
+            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0066CC] focus:border-transparent outline-none"
           />
         </div>
       </div>
@@ -193,7 +193,7 @@ export default function AdminUsersPage() {
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin text-[#ff9900]" />
+            <Loader2 className="h-8 w-8 animate-spin text-[#0066CC]" />
           </div>
         ) : filteredUsers.length === 0 ? (
           <div className="text-center py-12">
@@ -292,7 +292,7 @@ export default function AdminUsersPage() {
                     <td className="px-6 py-4 text-right">
                       <Link
                         href={`/admin/users/${userItem.uid}`}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-[#ff9900] text-white rounded-lg hover:bg-[#ff8800] transition-colors text-sm font-medium"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-[#0066CC] text-white rounded-lg hover:bg-[#ff8800] transition-colors text-sm font-medium"
                       >
                         <Eye className="h-4 w-4" />
                         Ver Detalle

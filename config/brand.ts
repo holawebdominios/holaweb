@@ -8,15 +8,13 @@ export const BRAND = {
   name: 'Hola Empresa',
   slogan: 'El 0800 de siempre, pero ahora con Hola',
   
-  // Colores (usar con Tailwind: bg-brand-blue, text-brand-orange, etc.)
+  // Colores (usar con Tailwind: bg-brand-blue, text-brand-yellow, etc.)
   colors: {
-    blue: '#13314c',        // Azul principal (navbar, footer)
-    blueDark: '#0a1f30',    // Azul oscuro (hover)
-    orange: '#ff9900',      // Naranja principal (CTAs)
-    orangeDark: '#ff8800',  // Naranja oscuro (hover)
-    cream: '#faf8f5',       // Fondo crema
-    light: '#ffffff',       // Blanco
-    success: '#10b981',     // Verde (badges)
+    blue: '#0066CC',        // Azul principal (CTAs, enlaces)
+    blueDark: '#004D99',    // Azul oscuro (hover)
+    yellow: '#FFCC4D',      // Amarillo brand (destacados)
+    yellowDark: '#F6A823',  // Amarillo oscuro (hover)
+    lightBg: '#F2F6FB',     // Fondo secciones claras
   },
   
   // Contacto

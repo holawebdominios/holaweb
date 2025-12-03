@@ -134,7 +134,7 @@ export default function HeroSection() {
 
   return (
     <section 
-      id="verificar"
+      id="inicio"
       className="relative h-[70vh] min-h-[500px] sm:min-h-[550px] md:h-[75vh] overflow-hidden"
     >
       {/* Imagen de fondo */}
@@ -150,11 +150,11 @@ export default function HeroSection() {
         />
       </div>
       
-      {/* Overlay oscuro */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
-      
       {/* Overlay con gradiente de marca */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#13314c]/30 via-transparent to-[#ff9900]/20" />
+      <div className="absolute inset-0 bg-gradient-to-b from-brand-blue/80 via-brand-blue/70 to-brand-blueDark/90" />
+      
+      {/* Acento naranja sutil */}
+      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-brand-orange/10" />
       
       {/* Contenido Hero */}
       <div 
@@ -174,9 +174,9 @@ export default function HeroSection() {
               }}
             >
               <span className="block bg-gradient-to-r from-white via-white to-gray-100 bg-clip-text text-transparent hero-title-line1">
-                Verificá tu Dominio .AR
+                Verificá tu Dominio COM.AR
               </span>
-              <span className="block mt-2 bg-gradient-to-r from-[#ff9900] via-[#ff8800] to-[#ff6600] bg-clip-text text-transparent hero-title-line2">
+              <span className="block mt-2 bg-gradient-to-r from-brand-yellow via-brand-yellowDark to-brand-yellow bg-clip-text text-transparent hero-title-line2">
                 en Segundos
               </span>
             </h1>
@@ -203,7 +203,7 @@ export default function HeroSection() {
                       onChange={(e) => setDomain(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && handleQuickCheck()}
                       placeholder="ejemplo o ejemplo.com.ar"
-                      className="w-full pl-12 pr-4 py-4 bg-white/90 text-gray-900 border-0 rounded-xl focus:ring-2 focus:ring-[#ff9900] outline-none transition-all text-base sm:text-lg font-medium placeholder:text-gray-400"
+                      className="w-full pl-12 pr-4 py-4 bg-white/90 text-gray-900 border-0 rounded-xl focus:ring-2 focus:ring-brand-yellow outline-none transition-all text-base sm:text-lg font-medium placeholder:text-gray-400"
                       disabled={isChecking}
                     />
                   </div>
@@ -213,7 +213,7 @@ export default function HeroSection() {
                     whileTap={{ scale: 0.95 }}
                     onClick={handleQuickCheck}
                     disabled={isChecking || !domain.trim()}
-                    className="px-6 sm:px-8 py-4 bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-[#ff9900]/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 whitespace-nowrap"
+                    className="px-6 sm:px-8 py-4 bg-brand-yellow hover:bg-brand-yellowDark text-gray-900 font-semibold rounded-xl shadow-lg hover:shadow-2xl hover:shadow-brand-yellow/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 whitespace-nowrap"
                   >
                     {isChecking ? (
                       <>
@@ -264,7 +264,7 @@ export default function HeroSection() {
                             <motion.button
                               whileHover={{ scale: 1.02 }}
                               whileTap={{ scale: 0.98 }}
-                              className="w-full bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all text-sm flex items-center justify-center gap-2"
+                              className="w-full bg-brand-blue hover:bg-brand-blueDark text-white px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all text-sm flex items-center justify-center gap-2"
                             >
                               Adquirir Dominio
                               <ArrowRight className="h-4 w-4" />
@@ -284,7 +284,7 @@ export default function HeroSection() {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={handleFullCheck}
-                          className="text-[#ff9900] bg-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-sm flex items-center gap-2"
+                          className="text-brand-blue bg-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-sm flex items-center gap-2"
                         >
                           Ver más dominios
                           <ArrowRight className="h-4 w-4" />

@@ -24,7 +24,7 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 
 export default function CTASection({ onWhatsAppClick }: CTASectionProps) {
   return (
-    <section className="py-20 text-white relative overflow-hidden" style={{ backgroundColor: '#ff9900' }}>
+    <section id="contacto" className="py-20 text-white relative overflow-hidden" style={{ backgroundColor: '#FFCC4D' }}>
       {/* Elementos decorativos de fondo animados */}
       <div className="absolute inset-0">
         <motion.div 
@@ -79,7 +79,7 @@ export default function CTASection({ onWhatsAppClick }: CTASectionProps) {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-4 bg-white font-bold rounded-xl hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center min-w-[200px]"
-                style={{ color: '#ff9900' }}
+                style={{ color: '#FFCC4D' }}
               >
                 <Search className="h-5 w-5 mr-3" />
                 Verificar Dominio
@@ -96,7 +96,7 @@ export default function CTASection({ onWhatsAppClick }: CTASectionProps) {
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = 'white';
-                e.currentTarget.style.color = '#ff9900';
+                e.currentTarget.style.color = '#FFCC4D';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'transparent';

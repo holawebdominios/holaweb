@@ -9,7 +9,7 @@ export default function AdminSettingsPage() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
-          <Settings className="h-8 w-8 text-[#ff9900]" />
+          <Settings className="h-8 w-8 text-[#0066CC]" />
           Configuración
         </h1>
         <p className="text-gray-600 mt-1">
@@ -26,7 +26,7 @@ export default function AdminSettingsPage() {
           className="bg-white rounded-xl p-6 shadow-sm border border-gray-100"
         >
           <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-            <Shield className="h-5 w-5 text-[#ff9900]" />
+            <Shield className="h-5 w-5 text-[#0066CC]" />
             Seguridad
           </h2>
 
@@ -69,7 +69,7 @@ export default function AdminSettingsPage() {
           className="bg-white rounded-xl p-6 shadow-sm border border-gray-100"
         >
           <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-            <Database className="h-5 w-5 text-[#ff9900]" />
+            <Database className="h-5 w-5 text-[#0066CC]" />
             Base de Datos
           </h2>
 

@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, Phone, User, LogOut, LayoutDashboard, LogIn } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
 import { signOut } from "@/lib/auth-service";
 import { toast } from "sonner";
+import Logo from "@/components/ui/Logo";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,11 +56,11 @@ const Navbar = () => {
   }, [isOpen]);
 
   const navItems = [
-    { href: "/", label: "Inicio", id: "" },
-    { href: "/#verificar", label: "Verificar", id: "verificar" },
-    { href: "/planes", label: "Planes", id: "planes" },
-    { href: "/faq", label: "FAQ", id: "faq" },
-    { href: "/contacto", label: "Contacto", id: "contacto" },
+    { href: "/#inicio", label: "Inicio", id: "inicio" },
+    { href: "/#planes", label: "Planes", id: "planes" },
+    { href: "/#como-funciona", label: "Cómo Funciona", id: "como-funciona" },
+    { href: "/#beneficios", label: "Beneficios", id: "beneficios" },
+    { href: "/#contacto", label: "Contacto", id: "contacto" },
   ];
 
   const handleNavClick = (href: string) => {
@@ -106,7 +106,7 @@ const Navbar = () => {
           className={cn(
             "transition-all duration-500",
             isScrolled
-              ? "w-full backdrop-blur-xl bg-[#13314c]/95 shadow-lg shadow-black/10 rounded-none"
+              ? "w-full backdrop-blur-xl bg-brand-blue/95 shadow-lg shadow-black/10 rounded-none"
               : "max-w-5xl mx-auto backdrop-blur-md bg-white/90 shadow-md rounded-2xl"
           )}
           style={{
@@ -122,24 +122,14 @@ const Navbar = () => {
             )}
           >
             {/* Logo con animación */}
-            <Link href="/" className="flex items-center space-x-2 group">
+            <Link href="/" className="group">
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="relative"
               >
-                <Image
-                  src="/images/logo.png"
-                  alt="Hola Empresa"
-                  width={120}
-                  height={40}
-                  className="h-8 sm:h-10 w-auto"
-                  priority
-                />
-                <motion.span
-                  className="absolute inset-0 bg-gradient-to-r from-[#ff9900] to-[#ff6600] opacity-0 group-hover:opacity-20 blur-xl"
-                  animate={{ opacity: [0, 0.2, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
+                <Logo 
+                  variant={isScrolled ? 'white' : 'default'} 
+                  size="sm"
                 />
               </motion.div>
             </Link>
@@ -163,11 +153,11 @@ const Navbar = () => {
                         "font-medium text-sm relative z-10 transition-colors duration-300",
                         isScrolled
                           ? isActive
-                            ? "text-[#ff9900]"
-                            : "text-white/90 hover:text-[#ff9900]"
+                            ? "text-brand-yellow"
+                            : "text-white/90 hover:text-brand-yellow"
                           : isActive
-                          ? "text-[#13314c]"
-                          : "text-gray-700 hover:text-[#13314c]"
+                          ? "text-brand-blue"
+                          : "text-gray-700 hover:text-brand-blue"
                       )}
                       whileHover={{ scale: 1.05 }}
                     >
@@ -178,7 +168,7 @@ const Navbar = () => {
                     {isActive && (
                       <motion.div
                         layoutId="activeIndicator"
-                        className="absolute inset-0 bg-gradient-to-r from-[#ff9900]/20 to-[#ff6600]/20 rounded-lg"
+                        className="absolute inset-0 bg-gradient-to-r from-[brand-yellow]/20 to-[#ff6600]/20 rounded-lg"
                         initial={false}
                         transition={{
                           type: "spring",
@@ -190,7 +180,7 @@ const Navbar = () => {
 
                     {/* Hover effect */}
                     <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-[#ff9900]/10 to-[#ff6600]/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      className="absolute inset-0 bg-gradient-to-r from-[brand-yellow]/10 to-[#ff6600]/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                       whileHover={{ scale: 1.05 }}
                     />
                   </Link>
@@ -213,8 +203,8 @@ const Navbar = () => {
                       className={cn(
                         "flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300",
                         isScrolled
-                          ? "bg-[#ff9900]/20 text-white hover:bg-[#ff9900]/30 border border-[#ff9900]/30"
-                          : "bg-[#13314c]/5 text-[#13314c] hover:bg-[#13314c]/10"
+                          ? "bg-brand-yellow/20 text-white hover:bg-brand-yellow/30 border border-brand-yellow/30"
+                          : "bg-brand-blue/5 text-brand-blue hover:bg-brand-blue/10"
                       )}
                     >
                       <User className="h-4 w-4" />
@@ -274,8 +264,8 @@ const Navbar = () => {
                       className={cn(
                         "flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300",
                         isScrolled
-                          ? "bg-[#ff9900]/20 text-white hover:bg-[#ff9900]/30 border border-[#ff9900]/30"
-                          : "bg-[#13314c]/5 text-[#13314c] hover:bg-[#13314c]/10"
+                          ? "bg-brand-yellow/20 text-white hover:bg-brand-yellow/30 border border-brand-yellow/30"
+                          : "bg-brand-blue/5 text-brand-blue hover:bg-brand-blue/10"
                       )}
                     >
                       <LogIn className="h-4 w-4" />
@@ -293,7 +283,7 @@ const Navbar = () => {
                   "md:hidden p-2 rounded-lg transition-all duration-300",
                   isScrolled
                     ? "text-white hover:bg-white/10"
-                    : "text-[#13314c] hover:bg-gray-100"
+                    : "text-brand-blue hover:bg-gray-100"
                 )}
                 aria-label="Toggle menu"
               >
@@ -371,18 +361,18 @@ const Navbar = () => {
                               "block px-4 py-3 rounded-lg font-medium transition-all duration-300 relative",
                               isScrolled
                                 ? isActive
-                                  ? "text-[#ff9900] bg-[#ff9900]/20"
-                                  : "text-white hover:text-[#ff9900] hover:bg-white/10"
+                                  ? "text-brand-yellow bg-brand-yellow/20"
+                                  : "text-white hover:text-brand-yellow hover:bg-white/10"
                                 : isActive
-                                ? "text-[#13314c] bg-[#13314c]/10"
-                                : "text-gray-700 hover:text-[#13314c] hover:bg-gray-100"
+                                ? "text-brand-blue bg-brand-blue/10"
+                                : "text-gray-700 hover:text-brand-blue hover:bg-gray-100"
                             )}
                           >
                             {item.label}
                             {isActive && (
                               <motion.div
                                 layoutId="mobileActiveIndicator"
-                                className="absolute left-0 top-0 bottom-0 w-1 bg-[#ff9900] rounded-r-full"
+                                className="absolute left-0 top-0 bottom-0 w-1 bg-brand-yellow rounded-r-full"
                                 initial={false}
                               />
                             )}
@@ -422,8 +412,8 @@ const Navbar = () => {
                             className={cn(
                               "flex items-center space-x-2 px-4 py-3 rounded-lg transition-all duration-300",
                               isScrolled
-                                ? "bg-[#ff9900]/20 text-white hover:bg-[#ff9900]/30 border border-[#ff9900]/30"
-                                : "bg-[#13314c]/5 text-[#13314c] hover:bg-[#13314c]/10"
+                                ? "bg-brand-yellow/20 text-white hover:bg-brand-yellow/30 border border-brand-yellow/30"
+                                : "bg-brand-blue/5 text-brand-blue hover:bg-brand-blue/10"
                             )}
                           >
                             <LayoutDashboard className="h-4 w-4" />
@@ -455,8 +445,8 @@ const Navbar = () => {
                           className={cn(
                             "flex items-center space-x-2 px-4 py-3 rounded-lg transition-all duration-300",
                             isScrolled
-                              ? "bg-[#ff9900]/20 text-white hover:bg-[#ff9900]/30 border border-[#ff9900]/30"
-                              : "bg-[#13314c]/5 text-[#13314c] hover:bg-[#13314c]/10"
+                              ? "bg-brand-yellow/20 text-white hover:bg-brand-yellow/30 border border-brand-yellow/30"
+                              : "bg-brand-blue/5 text-brand-blue hover:bg-brand-blue/10"
                           )}
                         >
                           <LogIn className="h-4 w-4" />

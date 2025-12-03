@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signInWithGoogle, loginWithEmail } from '@/lib/auth-service';
 import { toast } from 'sonner';
-import Image from 'next/image';
+import Logo from '@/components/ui/Logo';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -71,13 +71,7 @@ export default function LoginPage() {
           </Link>
           
           <div className="mt-4 mb-6 flex justify-center">
-            <Image
-              src="/images/logo.png"
-              alt="Hola Empresa"
-              width={150}
-              height={50}
-              className="h-12 w-auto"
-            />
+            <Logo variant="default" size="md" />
           </div>
           
           <h1 className={cn([integralCF.className, "text-3xl font-bold text-gray-900 mb-2"])}>
@@ -133,7 +127,7 @@ export default function LoginPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ff9900] focus:border-transparent outline-none transition"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none transition"
                   placeholder="tu@email.com"
                   disabled={isLoading || isGoogleLoading}
                   required
@@ -151,7 +145,7 @@ export default function LoginPage() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ff9900] focus:border-transparent outline-none transition"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none transition"
                   placeholder="Tu contraseña"
                   disabled={isLoading || isGoogleLoading}
                   required
@@ -161,10 +155,10 @@ export default function LoginPage() {
 
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="rounded border-gray-300 text-[#ff9900] focus:ring-[#ff9900]" />
+                <input type="checkbox" className="rounded border-gray-300 text-[brand-yellow] focus:ring-brand-yellow" />
                 <span className="text-gray-600">Recordarme</span>
               </label>
-              <Link href="/forgot-password" className="text-[#ff9900] hover:text-[#ff6600] font-medium">
+              <Link href="/forgot-password" className="text-[brand-yellow] hover:text-[brand-yellowDark] font-medium">
                 ¿Olvidaste tu contraseña?
               </Link>
             </div>
@@ -174,7 +168,7 @@ export default function LoginPage() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               disabled={isLoading || isGoogleLoading}
-              className="w-full bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-brand-yellow to-brand-yellowDark text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {isLoading ? (
                 <>
@@ -190,7 +184,7 @@ export default function LoginPage() {
           {/* Link a registro */}
           <div className="mt-6 text-center text-sm text-gray-600">
             ¿No tenés cuenta?{' '}
-            <Link href="/register" className="text-[#ff9900] hover:text-[#ff6600] font-semibold">
+            <Link href="/register" className="text-[brand-yellow] hover:text-[brand-yellowDark] font-semibold">
               Registrate gratis
             </Link>
           </div>

@@ -124,7 +124,7 @@ export default function DashboardPage() {
   if (loading || isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
-        <Loader2 className="h-8 w-8 animate-spin text-[#ff9900]" />
+        <Loader2 className="h-8 w-8 animate-spin text-brand-yellow" />
       </div>
     );
   }
@@ -247,8 +247,8 @@ export default function DashboardPage() {
                 <p className="text-sm text-gray-600 mb-1">Dominios Totales</p>
                 <p className="text-3xl font-bold text-gray-900">{stats.totalDomains}</p>
               </div>
-              <div className="bg-[#ff9900]/10 p-4 rounded-xl">
-                <Globe className="h-8 w-8 text-[#ff9900]" />
+              <div className="bg-[brand-yellow]/10 p-4 rounded-xl">
+                <Globe className="h-8 w-8 text-brand-yellow" />
               </div>
             </div>
           </motion.div>
@@ -317,7 +317,7 @@ export default function DashboardPage() {
             >
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                  <Globe className="h-6 w-6 text-[#ff9900]" />
+                  <Globe className="h-6 w-6 text-brand-yellow" />
                   Mis Dominios
                 </h2>
               </div>
@@ -328,7 +328,7 @@ export default function DashboardPage() {
                   <p className="text-gray-500 mb-4">No tenés dominios registrados aún</p>
                   <button
                     onClick={() => router.push('/')}
-                    className="px-6 py-3 bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+                    className="px-6 py-3 bg-brand-yellow hover:bg-brand-yellowDark text-gray-900 rounded-xl font-semibold hover:shadow-lg transition-all"
                   >
                     Buscar Dominio
                   </button>
@@ -341,12 +341,12 @@ export default function DashboardPage() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 * index }}
-                      className="border border-gray-200 rounded-xl p-5 hover:border-[#ff9900] hover:shadow-md transition-all"
+                      className="border border-gray-200 rounded-xl p-5 hover:border-[brand-yellow] hover:shadow-md transition-all"
                     >
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex items-center gap-3">
-                          <div className="bg-[#ff9900]/10 p-3 rounded-lg">
-                            <Globe className="h-6 w-6 text-[#ff9900]" />
+                          <div className="bg-[brand-yellow]/10 p-3 rounded-lg">
+                            <Globe className="h-6 w-6 text-brand-yellow" />
                           </div>
                           <div>
                             <h3 className="font-bold text-lg text-gray-900">{domain.domain}</h3>
@@ -387,7 +387,7 @@ export default function DashboardPage() {
             >
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                  <FileText className="h-6 w-6 text-[#ff9900]" />
+                  <FileText className="h-6 w-6 text-brand-yellow" />
                   Mis Órdenes
                 </h2>
               </div>
@@ -405,7 +405,7 @@ export default function DashboardPage() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 * index }}
-                      className="border border-gray-200 rounded-xl p-5 hover:border-[#ff9900] hover:shadow-md transition-all"
+                      className="border border-gray-200 rounded-xl p-5 hover:border-[brand-yellow] hover:shadow-md transition-all"
                     >
                       <div className="flex items-start justify-between mb-3">
                         <div>
@@ -428,7 +428,7 @@ export default function DashboardPage() {
                         </div>
                         <div>
                           <p className="text-xs text-gray-500 mb-1">Total</p>
-                          <p className="text-sm font-bold text-[#ff9900]">${order.total.toLocaleString()}</p>
+                          <p className="text-sm font-bold text-brand-yellow">${order.total.toLocaleString()}</p>
                         </div>
                       </div>
                     </motion.div>
@@ -448,7 +448,7 @@ export default function DashboardPage() {
               className="bg-white rounded-2xl shadow-lg p-6"
             >
               <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <User className="h-5 w-5 text-[#ff9900]" />
+                <User className="h-5 w-5 text-brand-yellow" />
                 Mi Información
               </h2>
 
@@ -491,7 +491,7 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="bg-gradient-to-br from-[#ff9900] to-[#ff6600] rounded-2xl shadow-lg p-6 text-white"
+              className="bg-brand-blue rounded-2xl shadow-lg p-6 text-white"
             >
               <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
                 <Headphones className="h-5 w-5" />

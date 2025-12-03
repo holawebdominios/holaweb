@@ -48,7 +48,7 @@ export default function TestimonialsSection() {
   ];
 
   return (
-    <section className="py-20 relative overflow-hidden" style={{ backgroundColor: '#fff5e6' }}>
+    <section className="py-20 bg-brand-lightBg relative overflow-hidden">
       {/* Fondo decorativo */}
       <div className="absolute inset-0 gradient-mesh opacity-30" />
       
@@ -142,13 +142,13 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: any; index: numb
       }}
       className="group relative h-full"
     >
-      <div className="relative bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-white/50 hover:border-[#ff9900]/30 h-full flex flex-col">
+      <div className="relative bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-white/50 hover:border-brand-yellow/30 h-full flex-col">
         {/* Efecto de brillo en hover */}
-        <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#ff9900]/0 to-[#ff6600]/0 group-hover:from-[#ff9900]/5 group-hover:to-[#ff6600]/5 transition-all duration-500 opacity-0 group-hover:opacity-100" />
+        <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-brand-yellow/0 to-brand-yellow/0 group-hover:from-brand-yellow/5 group-hover:to-brand-yellow/5 transition-all duration-500 opacity-0 group-hover:opacity-100" />
         
         {/* Icono de comillas decorativo */}
         <motion.div
-          className="absolute top-6 right-6 text-[#ff9900]/10"
+          className="absolute top-6 right-6 text-brand-yellow/10"
           initial={{ scale: 0, rotate: -180 }}
           whileInView={{ scale: 1, rotate: 0 }}
           viewport={{ once: true }}
@@ -204,7 +204,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: any; index: numb
           >
             {/* Avatar */}
             <motion.div
-              className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ff9900] to-[#ff6600] flex items-center justify-center text-white font-bold text-sm shadow-lg"
+              className="w-12 h-12 rounded-full bg-brand-yellow flex items-center justify-center text-gray-900 font-bold text-sm shadow-lg"
               whileHover={{ scale: 1.1, rotate: 360 }}
               transition={{ duration: 0.5 }}
             >
@@ -213,14 +213,14 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: any; index: numb
             
             <div>
               <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
-              <p className="text-sm text-[#ff9900] font-medium">{testimonial.project}</p>
+              <p className="text-sm text-brand-blue font-medium">{testimonial.project}</p>
             </div>
           </motion.div>
         </div>
 
         {/* Línea decorativa animada */}
         <motion.div
-          className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ff9900] to-[#ff6600] rounded-b-3xl"
+          className="absolute bottom-0 left-0 right-0 h-1 bg-brand-yellow rounded-b-3xl"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}

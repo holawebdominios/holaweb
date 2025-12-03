@@ -41,7 +41,7 @@ function SuccessContent() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-12 w-12 text-[#ff9900] animate-spin" />
+        <Loader2 className="h-12 w-12 text-[brand-yellow] animate-spin" />
       </div>
     );
   }
@@ -86,7 +86,7 @@ function SuccessContent() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Total Pagado:</span>
-                  <span className="font-semibold text-[#ff9900] text-lg">${order.total?.toLocaleString()}</span>
+                  <span className="font-semibold text-[brand-yellow] text-lg">${order.total?.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Número de Orden:</span>
@@ -114,7 +114,7 @@ function SuccessContent() {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                  className="w-full bg-gradient-to-r from-brand-yellow to-brand-yellowDark text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
                 >
                   Ver Mis Dominios
                 </motion.button>
@@ -128,7 +128,7 @@ function SuccessContent() {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                    className="w-full bg-gradient-to-r from-brand-yellow to-brand-yellowDark text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
                   >
                     Crear Cuenta para Gestionar
                   </motion.button>
@@ -163,7 +163,7 @@ export default function CheckoutSuccessPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-12 w-12 text-[#ff9900] animate-spin" />
+        <Loader2 className="h-12 w-12 text-[brand-yellow] animate-spin" />
       </div>
     }>
       <SuccessContent />

@@ -46,7 +46,7 @@ export default function BackToTop() {
         >
           {/* Efecto de brillo en hover */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-[#ff9900] to-[#ff6600] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            className="absolute inset-0 bg-gradient-to-br from-[#FFCC4D] to-[#ff6600] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           />
           
           {/* Efecto de pulso */}

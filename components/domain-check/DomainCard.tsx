@@ -58,7 +58,7 @@ export default function DomainCard({ domain }: DomainCardProps) {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 py-2 bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300"
+                className="px-6 py-2 bg-gradient-to-r from-[#FFCC4D] to-[#ff6600] text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300"
               >
                 Adquirir Dominio
               </motion.button>

@@ -57,7 +57,7 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
               className={cn(
                 'flex items-center gap-3 px-4 py-3 rounded-lg transition-all relative',
                 isActive
-                  ? 'bg-[#ff9900] text-white shadow-lg'
+                  ? 'bg-[#FFCC4D] text-white shadow-lg'
                   : 'text-gray-300 hover:bg-gray-800 hover:text-white'
               )}
             >

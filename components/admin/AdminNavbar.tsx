@@ -41,7 +41,7 @@ export default function AdminNavbar({ onMenuClick }: AdminNavbarProps) {
           </button>
 
           <div className="flex items-center gap-3">
-            <Shield className="h-8 w-8 text-[#ff9900]" />
+            <Shield className="h-8 w-8 text-[#FFCC4D]" />
             <div>
               <h1 className="font-bold text-lg text-gray-900">Panel Admin</h1>
               <p className="text-xs text-gray-500">Hola Empresa</p>
@@ -61,7 +61,7 @@ export default function AdminNavbar({ onMenuClick }: AdminNavbarProps) {
               </p>
               <p className="text-xs text-gray-500">{user?.email}</p>
             </div>
-            <div className="w-10 h-10 bg-gradient-to-br from-[#ff9900] to-[#ff6600] rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-[#FFCC4D] to-[#ff6600] rounded-full flex items-center justify-center">
               <User className="h-5 w-5 text-white" />
             </div>
           </button>

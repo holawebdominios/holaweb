@@ -133,7 +133,7 @@ export default function AdminDomainsPage() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
-          <Globe className="h-8 w-8 text-[#ff9900]" />
+          <Globe className="h-8 w-8 text-[#0066CC]" />
           Dominios
         </h1>
         <p className="text-gray-600 mt-1">
@@ -152,7 +152,7 @@ export default function AdminDomainsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Buscar por dominio o email..."
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ff9900] focus:border-transparent outline-none"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0066CC] focus:border-transparent outline-none"
             />
           </div>
         </div>
@@ -173,7 +173,7 @@ export default function AdminDomainsPage() {
                 className={cn(
                   'px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap',
                   statusFilter === filter.value
-                    ? 'bg-[#ff9900] text-white shadow-lg'
+                    ? 'bg-[#0066CC] text-white shadow-lg'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 )}
               >
@@ -188,7 +188,7 @@ export default function AdminDomainsPage() {
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin text-[#ff9900]" />
+            <Loader2 className="h-8 w-8 animate-spin text-[#0066CC]" />
           </div>
         ) : filteredDomains.length === 0 ? (
           <div className="text-center py-12">
@@ -232,7 +232,7 @@ export default function AdminDomainsPage() {
                     {/* Dominio */}
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        <Globe className="h-4 w-4 text-[#ff9900]" />
+                        <Globe className="h-4 w-4 text-[#0066CC]" />
                         <div>
                           <p className="font-semibold text-gray-900">{domain.domain}</p>
                           <p className="text-xs text-gray-500">{domain.tld}</p>
@@ -245,7 +245,7 @@ export default function AdminDomainsPage() {
                       {domain.userEmail ? (
                         <Link
                           href={`/admin/users/${domain.userId}`}
-                          className="text-sm text-[#ff9900] hover:text-[#ff8800] hover:underline"
+                          className="text-sm text-[#0066CC] hover:text-[#ff8800] hover:underline"
                         >
                           {domain.userEmail}
                         </Link>

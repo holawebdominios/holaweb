@@ -104,7 +104,7 @@ export default function AdminDashboardPage() {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ff9900] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0066CC] mx-auto mb-4"></div>
           <p className="text-gray-600">Cargando dashboard...</p>
         </div>
       </div>
@@ -262,7 +262,7 @@ export default function AdminDashboardPage() {
             <h2 className="text-xl font-bold text-gray-900">Órdenes Recientes</h2>
             <Link
               href="/admin/orders"
-              className="text-sm text-[#ff9900] hover:text-[#ff8800] font-medium"
+              className="text-sm text-[#0066CC] hover:text-[#ff8800] font-medium"
             >
               Ver todas →
             </Link>
@@ -278,7 +278,7 @@ export default function AdminDashboardPage() {
                 <Link
                   key={order.id}
                   href={`/admin/orders/${order.id}`}
-                  className="block p-4 border border-gray-200 rounded-lg hover:border-[#ff9900] hover:shadow-md transition-all"
+                  className="block p-4 border border-gray-200 rounded-lg hover:border-[#0066CC] hover:shadow-md transition-all"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex-1">

@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signInWithGoogle, registerWithEmail } from '@/lib/auth-service';
 import { toast } from 'sonner';
-import Image from 'next/image';
+import Logo from '@/components/ui/Logo';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -100,13 +100,7 @@ export default function RegisterPage() {
           </Link>
           
           <div className="mt-4 mb-6 flex justify-center">
-            <Image
-              src="/images/logo.png"
-              alt="Hola Empresa"
-              width={150}
-              height={50}
-              className="h-12 w-auto"
-            />
+            <Logo variant="default" size="md" />
           </div>
           
           <h1 className={cn([integralCF.className, "text-3xl font-bold text-gray-900 mb-2"])}>
@@ -173,7 +167,7 @@ export default function RegisterPage() {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ff9900] focus:border-transparent outline-none transition"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none transition"
                   placeholder="Juan Pérez"
                   disabled={isLoading || isGoogleLoading}
                   required
@@ -191,7 +185,7 @@ export default function RegisterPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ff9900] focus:border-transparent outline-none transition"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none transition"
                   placeholder="tu@email.com"
                   disabled={isLoading || isGoogleLoading}
                   required
@@ -209,7 +203,7 @@ export default function RegisterPage() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ff9900] focus:border-transparent outline-none transition"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none transition"
                   placeholder="Mínimo 6 caracteres"
                   disabled={isLoading || isGoogleLoading}
                   required
@@ -227,7 +221,7 @@ export default function RegisterPage() {
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ff9900] focus:border-transparent outline-none transition"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none transition"
                   placeholder="Repetí tu contraseña"
                   disabled={isLoading || isGoogleLoading}
                   required
@@ -241,16 +235,16 @@ export default function RegisterPage() {
                   type="checkbox"
                   checked={acceptTerms}
                   onChange={(e) => setAcceptTerms(e.target.checked)}
-                  className="mt-1 rounded border-gray-300 text-[#ff9900] focus:ring-[#ff9900]"
+                  className="mt-1 rounded border-gray-300 text-[brand-yellow] focus:ring-brand-yellow"
                   required
                 />
                 <span className="text-sm text-gray-600">
                   Acepto los{' '}
-                  <Link href="/terminos" className="text-[#ff9900] hover:text-[#ff6600] font-medium">
+                  <Link href="/terminos" className="text-[brand-yellow] hover:text-[brand-yellowDark] font-medium">
                     términos y condiciones
                   </Link>
                   {' '}y la{' '}
-                  <Link href="/privacidad" className="text-[#ff9900] hover:text-[#ff6600] font-medium">
+                  <Link href="/privacidad" className="text-[brand-yellow] hover:text-[brand-yellowDark] font-medium">
                     política de privacidad
                   </Link>
                 </span>
@@ -262,7 +256,7 @@ export default function RegisterPage() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               disabled={isLoading || isGoogleLoading}
-              className="w-full bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-brand-yellow to-brand-yellowDark text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {isLoading ? (
                 <>
@@ -278,7 +272,7 @@ export default function RegisterPage() {
           {/* Link a login */}
           <div className="mt-6 text-center text-sm text-gray-600">
             ¿Ya tenés cuenta?{' '}
-            <Link href="/login" className="text-[#ff9900] hover:text-[#ff6600] font-semibold">
+            <Link href="/login" className="text-[brand-yellow] hover:text-[brand-yellowDark] font-semibold">
               Iniciá sesión
             </Link>
           </div>
