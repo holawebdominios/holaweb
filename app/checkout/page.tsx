@@ -1,43 +1,181 @@
 "use client";
 
-import { use, useState, Suspense } from 'react';
+import { useState, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { integralCF } from '@/styles/fonts';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
+import { getIdToken } from '@/lib/auth-service';
+import { toast } from 'sonner';
 import { 
   ArrowLeft, Check, Globe, Calendar, Shield, 
-  CreditCard, Lock, AlertCircle, Mail, User, Phone, Building
+  CreditCard, Lock, AlertCircle, Mail, User, Phone, Building, Loader2
 } from 'lucide-react';
 
 function CheckoutContent() {
   const searchParams = useSearchParams();
   const domain = searchParams.get('domain') || 'tudominio.com.ar';
+  const { user } = useAuth();
   
-  const [selectedPlan, setSelectedPlan] = useState<'1year' | '2years' | '3years'>('1year');
+  const [selectedPlan, setSelectedPlan] = useState<'PERIOD_1_MONTH' | 'PERIOD_1_YEAR' | 'PERIOD_2_YEARS'>('PERIOD_1_YEAR');
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [isSimulating, setIsSimulating] = useState(false);
+  const [lastOrderId, setLastOrderId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     company: '',
     cuit: '',
-    address: '',
   });
+  
+  const isDevelopment = typeof window !== 'undefined' && 
+                       window.location.hostname === 'localhost';
 
   const plans = {
-    '1year': { period: '1 año', price: 5900, discount: 0 },
-    '2years': { period: '2 años', price: 10600, discount: 10 },
-    '3years': { period: '3 años', price: 14760, discount: 17 },
+    'PERIOD_1_MONTH': { period: '1 mes', price: 5900, discount: 0 },
+    'PERIOD_1_YEAR': { period: '12 meses', price: 5900 * 12, discount: 0 },
+    'PERIOD_2_YEARS': { period: '24 meses', price: 5900 * 24, discount: 0 },
   };
 
   const selectedPlanData = plans[selectedPlan];
-  const subtotal = selectedPlanData.price;
-  const total = subtotal;
+  const total = selectedPlanData.price;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Mockup de checkout - En producción se integrará con Mercado Pago');
+    
+    // Validar formulario
+    if (!formData.name || !formData.email || !formData.phone) {
+      toast.error('Completá todos los campos obligatorios');
+      return;
+    }
+    
+    setIsProcessing(true);
+    
+    try {
+      // Obtener token si el usuario está autenticado
+      const token = await getIdToken();
+      
+      // Llamar al endpoint seguro para crear la orden
+      const response = await fetch('/api/checkout/create-order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({
+          domain,
+          periodId: selectedPlan,
+          customerData: {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            company: formData.company || undefined,
+            cuit: formData.cuit || undefined,
+          },
+        }),
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Error al procesar la orden');
+      }
+      
+      const data = await response.json();
+      
+      // Si está en modo demo, mostrar mensaje
+      if (data.demo) {
+        toast.error(data.message || 'Sistema de pagos no configurado');
+        toast.info('El checkout está listo. Configura Firebase y Mercado Pago para habilitar pagos reales.');
+        setIsProcessing(false);
+        return;
+      }
+      
+      if (data.success && data.orderId) {
+        const orderId = data.orderId;
+        
+        // EN LOCALHOST: Simular pago automáticamente
+        if (isDevelopment) {
+          toast.success('🧪 Simulando pago...');
+          
+          // Simular el pago
+          const simulateResponse = await fetch('/api/checkout/simulate-payment', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ orderId }),
+          });
+          
+          const simulateData = await simulateResponse.json();
+          
+          if (simulateData.success) {
+            toast.success('¡Pago simulado exitosamente!');
+            // Redirigir a success
+            setTimeout(() => {
+              window.location.href = `/checkout/success?orderId=${orderId}`;
+            }, 1000);
+          } else {
+            throw new Error(simulateData.error || 'Error al simular pago');
+          }
+        } else {
+          // EN PRODUCCIÓN: Redirigir a Mercado Pago
+          if (data.mercadopago?.init_point) {
+            toast.success('Redirigiendo a Mercado Pago...');
+            window.location.href = data.mercadopago.init_point;
+          } else {
+            throw new Error('Error al crear preferencia de pago');
+          }
+        }
+      } else {
+        throw new Error('Error al crear orden');
+      }
+      
+    } catch (error) {
+      console.error('Error en checkout:', error);
+      toast.error(error instanceof Error ? error.message : 'Error al procesar el pago');
+      setIsProcessing(false);
+    }
+  };
+
+  const handleSimulatePayment = async () => {
+    if (!lastOrderId) {
+      toast.error('Primero debes crear una orden');
+      return;
+    }
+    
+    setIsSimulating(true);
+    
+    try {
+      const response = await fetch('/api/checkout/simulate-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          orderId: lastOrderId,
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        toast.success('¡Pago simulado exitosamente!');
+        // Redirigir a success
+        setTimeout(() => {
+          window.location.href = `/checkout/success?orderId=${lastOrderId}`;
+        }, 1000);
+      } else {
+        throw new Error(data.error || 'Error al simular pago');
+      }
+      
+    } catch (error) {
+      console.error('Error simulando pago:', error);
+      toast.error(error instanceof Error ? error.message : 'Error al simular pago');
+      setIsSimulating(false);
+    }
   };
 
   return (
@@ -130,11 +268,9 @@ function CheckoutContent() {
                         />
                         <div>
                           <p className="font-semibold text-gray-900">{plan.period}</p>
-                          {plan.discount > 0 && (
-                            <p className="text-sm text-green-600 font-medium">
-                              Ahorrás {plan.discount}%
-                            </p>
-                          )}
+                          <p className="text-sm text-gray-600">
+                            ${(5900).toLocaleString()}/mes
+                          </p>
                         </div>
                       </div>
                       <p className="text-xl font-bold text-gray-900">
@@ -241,16 +377,33 @@ function CheckoutContent() {
               </motion.div>
 
               {/* Botón de Pago Mobile */}
-              <div className="lg:hidden">
+              <div className="lg:hidden space-y-3">
                 <motion.button
                   type="submit"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-[#ff9900]/50 transition-all flex items-center justify-center gap-2"
+                  disabled={isProcessing || isSimulating}
+                  className="w-full bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-[#ff9900]/50 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <CreditCard className="h-5 w-5" />
-                  Proceder al Pago
+                  {isProcessing ? (
+                    <>
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                      Procesando...
+                    </>
+                  ) : (
+                    <>
+                      <CreditCard className="h-5 w-5" />
+                      {isDevelopment ? 'Proceder al Pago (Demo)' : 'Proceder al Pago'}
+                    </>
+                  )}
                 </motion.button>
+                
+                {/* Info de modo desarrollo */}
+                {isDevelopment && (
+                  <div className="text-xs text-center text-purple-600 bg-purple-50 rounded-lg py-2 px-3">
+                    🧪 Modo desarrollo: El pago se simulará automáticamente
+                  </div>
+                )}
               </div>
             </form>
           </div>
@@ -277,15 +430,12 @@ function CheckoutContent() {
 
                 <div className="space-y-3 py-4 border-b border-gray-100">
                   <div className="flex justify-between text-gray-600">
-                    <span>Subtotal</span>
-                    <span className="font-semibold">${subtotal.toLocaleString()}</span>
+                    <span>Total</span>
+                    <span className="font-semibold">${total.toLocaleString()}</span>
                   </div>
-                  {selectedPlanData.discount > 0 && (
-                    <div className="flex justify-between text-green-600">
-                      <span>Descuento ({selectedPlanData.discount}%)</span>
-                      <span className="font-semibold">-${(subtotal * selectedPlanData.discount / 100).toLocaleString()}</span>
-                    </div>
-                  )}
+                  <div className="text-xs text-gray-500">
+                    {`$${(5900).toLocaleString()}/mes durante ${selectedPlanData.period}`}
+                  </div>
                 </div>
 
                 <div className="flex justify-between items-center py-4">
@@ -295,18 +445,35 @@ function CheckoutContent() {
               </div>
 
               {/* Botón de Pago Desktop */}
-              <div className="hidden lg:block mb-6">
+              <div className="hidden lg:block mb-6 space-y-3">
                 <motion.button
                   type="submit"
                   form="checkout-form"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleSubmit}
-                  className="w-full bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-[#ff9900]/50 transition-all flex items-center justify-center gap-2"
+                  disabled={isProcessing || isSimulating}
+                  className="w-full bg-gradient-to-r from-[#ff9900] to-[#ff6600] text-white py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-[#ff9900]/50 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <CreditCard className="h-5 w-5" />
-                  Proceder al Pago
+                  {isProcessing ? (
+                    <>
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                      Procesando...
+                    </>
+                  ) : (
+                    <>
+                      <CreditCard className="h-5 w-5" />
+                      {isDevelopment ? 'Proceder al Pago (Demo)' : 'Proceder al Pago'}
+                    </>
+                  )}
                 </motion.button>
+                
+                {/* Info de modo desarrollo */}
+                {isDevelopment && (
+                  <div className="text-xs text-center text-purple-600 bg-purple-50 rounded-lg py-2 px-3">
+                    🧪 Modo desarrollo: El pago se simulará automáticamente
+                  </div>
+                )}
               </div>
 
               {/* Garantías */}

@@ -1,0 +1,67 @@
+===============================================
+🚨 EJECUTA ESTO PARA CONFIGURAR EL ADMIN 🚨
+===============================================
+
+PASO 1: Abre la consola del navegador
+---------------------------------------
+1. Abre Chrome/Edge/Firefox
+2. Ve a: http://localhost:3000
+3. Presiona F12 (o botón derecho → Inspeccionar)
+4. Click en la pestaña "Console"
+
+
+PASO 2: Copia y pega este código
+---------------------------------
+(Pega TODO el código de abajo EN UNA SOLA VEZ)
+
+fetch('http://localhost:3000/api/admin/init', { 
+  method: 'POST' 
+})
+.then(r => r.json())
+.then(data => {
+  console.log('=== RESULTADO ===');
+  console.log(data);
+  console.log('================');
+  
+  if (data.success) {
+    alert('✅ ÉXITO! Admin configurado. Ahora puedes hacer login en /admin/login');
+  } else {
+    alert('❌ ERROR: ' + data.error);
+  }
+});
+
+
+PASO 3: Presiona Enter
+-----------------------
+El código se ejecutará y verás el resultado.
+
+
+PASO 4: Si ves "Usuario no encontrado"
+---------------------------------------
+Significa que NO creaste admin@admin.com en Firebase Console.
+
+Solución:
+1. Ve a: https://console.firebase.google.com/
+2. Selecciona tu proyecto
+3. Authentication → Users → Add user
+4. Email: admin@admin.com
+5. Password: Admin123!
+6. Add user
+7. Vuelve a ejecutar el código del PASO 2
+
+
+PASO 5: Si ves "success: true"
+-------------------------------
+¡Perfecto! Ahora:
+1. Cierra TODAS las pestañas del navegador
+2. Abre nueva pestaña: http://localhost:3000/admin/login
+3. Login:
+   Email: admin@admin.com
+   Password: Admin123!
+4. Accederás al panel admin
+
+
+===============================================
+IMPORTANTE: Solo debes hacer esto UNA VEZ
+===============================================
+

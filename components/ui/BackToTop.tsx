@@ -9,11 +9,6 @@ export default function BackToTop() {
   const [isVisible, setIsVisible] = useState(false);
   const pathname = usePathname();
 
-  // Ocultar en checkout
-  if (pathname === '/checkout') {
-    return null;
-  }
-
   useEffect(() => {
     const handleScroll = () => {
       setIsVisible(window.scrollY > 500);
@@ -29,6 +24,11 @@ export default function BackToTop() {
       behavior: 'smooth'
     });
   };
+
+  // Ocultar en checkout (después de todos los hooks)
+  if (pathname === '/checkout') {
+    return null;
+  }
 
   return (
     <AnimatePresence>

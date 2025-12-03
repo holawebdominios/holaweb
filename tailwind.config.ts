@@ -17,6 +17,21 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
+        // Paleta de marca Hola Empresa
+        brand: {
+          blue: '#13314c',        // Azul principal (navbar, footer)
+          blueDark: '#0a1f30',    // Azul oscuro (hover)
+          orange: '#ff9900',      // Naranja principal (CTAs, énfasis)
+          orangeDark: '#ff8800',  // Naranja oscuro (hover)
+          cream: '#faf8f5',       // Fondo crema (secciones alternadas)
+          light: '#ffffff',       // Blanco cálido
+          success: '#10b981',     // Verde (badges positivos)
+        },
+        text: {
+          primary: '#0f172a',     // Títulos (casi negro)
+          secondary: '#64748b',   // Descripciones (gris azulado)
+        },
+        // Colores por defecto de Radix UI
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

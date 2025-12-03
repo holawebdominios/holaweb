@@ -33,11 +33,6 @@ export default function WhatsAppFAB({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
 
-  // Ocultar en checkout
-  if (pathname === '/checkout') {
-    return null;
-  }
-
   useEffect(() => {
     const handleScroll = () => {
       setIsVisible(window.scrollY > 300);
@@ -92,6 +87,11 @@ export default function WhatsAppFAB({
     window.open(whatsappUrl, '_blank');
     setShowTooltip(false);
   };
+
+  // Ocultar en checkout (después de todos los hooks)
+  if (pathname === '/checkout') {
+    return null;
+  }
 
   return (
     <AnimatePresence>

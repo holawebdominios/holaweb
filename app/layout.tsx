@@ -1,12 +1,9 @@
 import type { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
 import './globals.css';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
-import ScrollProgress from '@/components/ui/ScrollProgress';
-import WhatsAppFAB from '@/components/ui/WhatsAppFAB';
-import BackToTop from '@/components/ui/BackToTop';
 import { Toaster } from 'sonner';
+import { AuthProvider } from '@/contexts/AuthContext';
+import PublicLayout from '@/components/layout/PublicLayout';
 
 const manrope = Manrope({ 
   subsets: ['latin'],
@@ -15,9 +12,9 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: 'Hola Web - Verificación de Dominios .AR | Gestión Profesional',
-  description: 'Verificá disponibilidad de dominios .ar, .com.ar, .net.ar y más. Gestión profesional con recordatorios automáticos y monitoreo 24/7.',
-  keywords: ['dominios', 'verificación', 'RDAP', '.ar', '.com.ar', 'gestión de dominios'],
+  title: 'Hola Empresa - Verificación de Dominios .AR | El 0800 de siempre, pero ahora con Hola',
+  description: 'Verificá disponibilidad de dominios .ar, .com.ar, .net.ar y más. El 0800 de siempre, pero ahora con Hola. Gestión profesional con recordatorios automáticos y monitoreo 24/7.',
+  keywords: ['dominios', 'verificación', 'RDAP', '.ar', '.com.ar', 'gestión de dominios', 'hola empresa'],
 };
 
 export default function RootLayout({
@@ -28,15 +25,12 @@ export default function RootLayout({
   return (
     <html lang="es" className="scroll-smooth">
       <body className={manrope.className}>
-        <ScrollProgress />
-        <Navbar />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
-        <WhatsAppFAB />
-        <BackToTop />
-        <Toaster />
+        <AuthProvider>
+          <PublicLayout>
+            {children}
+          </PublicLayout>
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
   );

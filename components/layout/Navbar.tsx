@@ -3,22 +3,23 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { Menu, X, Phone } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { Menu, X, Phone, User, LogOut, LayoutDashboard, LogIn } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
+import { signOut } from "@/lib/auth-service";
+import { toast } from "sonner";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const navRef = useRef<HTMLElement>(null);
-
-  // Ocultar navbar en checkout
-  if (pathname === '/checkout') {
-    return null;
-  }
+  const { user, loading } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,6 +74,22 @@ const Navbar = () => {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      setShowUserMenu(false);
+      toast.success('Sesión cerrada exitosamente');
+      router.push('/');
+    } catch (error) {
+      toast.error('Error al cerrar sesión');
+    }
+  };
+
+  // Ocultar navbar en checkout (después de todos los hooks)
+  if (pathname === '/checkout') {
+    return null;
+  }
+
   return (
     <>
       <motion.nav
@@ -113,7 +130,7 @@ const Navbar = () => {
               >
                 <Image
                   src="/images/logo.png"
-                  alt="Hola Web"
+                  alt="Hola Empresa"
                   width={120}
                   height={40}
                   className="h-8 sm:h-10 w-auto"
@@ -183,21 +200,89 @@ const Navbar = () => {
 
             {/* Contact Info & Menu Button */}
             <div className="flex items-center space-x-4">
-              <div className="hidden lg:flex items-center space-x-4">
-                <motion.a
-                  href="tel:+541134976239"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={cn(
-                    "flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300",
-                    isScrolled
-                      ? "bg-[#ff9900]/20 text-white hover:bg-[#ff9900]/30 border border-[#ff9900]/30"
-                      : "bg-[#13314c]/5 text-[#13314c] hover:bg-[#13314c]/10"
-                  )}
-                >
-                  <Phone className="h-4 w-4" />
-                  <span className="text-sm font-medium">+54 11 1234-5678</span>
-                </motion.a>
+              {/* User Menu / Login Button */}
+              <div className="hidden md:flex items-center space-x-3">
+                {loading ? (
+                  <div className="h-10 w-10 rounded-full bg-gray-200 animate-pulse" />
+                ) : user ? (
+                  <div className="relative">
+                    <motion.button
+                      onClick={() => setShowUserMenu(!showUserMenu)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className={cn(
+                        "flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300",
+                        isScrolled
+                          ? "bg-[#ff9900]/20 text-white hover:bg-[#ff9900]/30 border border-[#ff9900]/30"
+                          : "bg-[#13314c]/5 text-[#13314c] hover:bg-[#13314c]/10"
+                      )}
+                    >
+                      <User className="h-4 w-4" />
+                      <span className="text-sm font-medium">
+                        {user.displayName || user.email?.split('@')[0]}
+                      </span>
+                    </motion.button>
+
+                    {/* Dropdown Menu */}
+                    <AnimatePresence>
+                      {showUserMenu && (
+                        <>
+                          {/* Overlay to close menu */}
+                          <div
+                            className="fixed inset-0 z-40"
+                            onClick={() => setShowUserMenu(false)}
+                          />
+                          <motion.div
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-2xl py-2 z-50 border border-gray-100"
+                          >
+                            <div className="px-4 py-3 border-b border-gray-100">
+                              <p className="text-sm font-semibold text-gray-900">
+                                {user.displayName || 'Usuario'}
+                              </p>
+                              <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                            </div>
+
+                            <Link
+                              href="/dashboard"
+                              onClick={() => setShowUserMenu(false)}
+                              className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 transition-colors"
+                            >
+                              <LayoutDashboard className="h-4 w-4 text-gray-600" />
+                              <span className="text-sm text-gray-700">Mi Dashboard</span>
+                            </Link>
+
+                            <button
+                              onClick={handleLogout}
+                              className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-red-50 transition-colors text-left"
+                            >
+                              <LogOut className="h-4 w-4 text-red-600" />
+                              <span className="text-sm text-red-600">Cerrar Sesión</span>
+                            </button>
+                          </motion.div>
+                        </>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <Link href="/login">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className={cn(
+                        "flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300",
+                        isScrolled
+                          ? "bg-[#ff9900]/20 text-white hover:bg-[#ff9900]/30 border border-[#ff9900]/30"
+                          : "bg-[#13314c]/5 text-[#13314c] hover:bg-[#13314c]/10"
+                      )}
+                    >
+                      <LogIn className="h-4 w-4" />
+                      <span className="text-sm font-medium">Iniciar Sesión</span>
+                    </motion.button>
+                  </Link>
+                )}
               </div>
 
               {/* Mobile Menu Button con animación */}
@@ -305,22 +390,80 @@ const Navbar = () => {
                         </motion.div>
                       );
                     })}
-                    <motion.a
-                      href="tel:+541134976239"
-                      initial={{ x: -20, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: navItems.length * 0.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      className={cn(
-                        "flex items-center space-x-2 px-4 py-3 rounded-lg mt-4 transition-all duration-300",
-                        isScrolled
-                          ? "bg-[#ff9900]/20 text-white border border-[#ff9900]/30"
-                          : "bg-[#13314c]/10 text-[#13314c]"
-                      )}
-                    >
-                      <Phone className="h-4 w-4" />
-                      <span className="font-medium">+54 11 1234-5678</span>
-                    </motion.a>
+                    {/* Separador */}
+                    <div className="border-t border-gray-200 my-4" />
+
+                    {/* User Options Mobile */}
+                    {user ? (
+                      <>
+                        <motion.div
+                          initial={{ x: -20, opacity: 0 }}
+                          animate={{ x: 0, opacity: 1 }}
+                          transition={{ delay: navItems.length * 0.1 }}
+                          className={cn(
+                            "px-4 py-3 rounded-lg",
+                            isScrolled
+                              ? "bg-white/5 text-white"
+                              : "bg-gray-100 text-gray-900"
+                          )}
+                        >
+                          <p className="text-sm font-semibold">{user.displayName || 'Usuario'}</p>
+                          <p className="text-xs opacity-75 truncate">{user.email}</p>
+                        </motion.div>
+
+                        <motion.div
+                          initial={{ x: -20, opacity: 0 }}
+                          animate={{ x: 0, opacity: 1 }}
+                          transition={{ delay: (navItems.length + 1) * 0.1 }}
+                        >
+                          <Link
+                            href="/dashboard"
+                            onClick={() => setIsOpen(false)}
+                            className={cn(
+                              "flex items-center space-x-2 px-4 py-3 rounded-lg transition-all duration-300",
+                              isScrolled
+                                ? "bg-[#ff9900]/20 text-white hover:bg-[#ff9900]/30 border border-[#ff9900]/30"
+                                : "bg-[#13314c]/5 text-[#13314c] hover:bg-[#13314c]/10"
+                            )}
+                          >
+                            <LayoutDashboard className="h-4 w-4" />
+                            <span className="font-medium">Mi Dashboard</span>
+                          </Link>
+                        </motion.div>
+
+                        <motion.button
+                          onClick={handleLogout}
+                          initial={{ x: -20, opacity: 0 }}
+                          animate={{ x: 0, opacity: 1 }}
+                          transition={{ delay: (navItems.length + 2) * 0.1 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="w-full flex items-center space-x-2 px-4 py-3 rounded-lg transition-all duration-300 bg-red-50 text-red-600 hover:bg-red-100"
+                        >
+                          <LogOut className="h-4 w-4" />
+                          <span className="font-medium">Cerrar Sesión</span>
+                        </motion.button>
+                      </>
+                    ) : (
+                      <motion.div
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: navItems.length * 0.1 }}
+                      >
+                        <Link
+                          href="/login"
+                          onClick={() => setIsOpen(false)}
+                          className={cn(
+                            "flex items-center space-x-2 px-4 py-3 rounded-lg transition-all duration-300",
+                            isScrolled
+                              ? "bg-[#ff9900]/20 text-white hover:bg-[#ff9900]/30 border border-[#ff9900]/30"
+                              : "bg-[#13314c]/5 text-[#13314c] hover:bg-[#13314c]/10"
+                          )}
+                        >
+                          <LogIn className="h-4 w-4" />
+                          <span className="font-medium">Iniciar Sesión</span>
+                        </Link>
+                      </motion.div>
+                    )}
                   </div>
                 </motion.div>
               </>

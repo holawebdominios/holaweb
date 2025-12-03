@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Hola Web",
+  name: "Hola Empresa",
   description: "Verificación y gestión profesional de dominios argentinos",
   url: "https://holaweb.com.ar",
   

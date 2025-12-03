@@ -29,6 +29,11 @@ const Footer = () => {
     ],
   };
 
+  // Ocultar footer en checkout (después de validar pathname)
+  if (pathname === '/checkout') {
+    return null;
+  }
+
   return (
     <footer className="text-white" style={{ backgroundColor: '#13314c' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
@@ -38,7 +43,7 @@ const Footer = () => {
             <div className="mb-4">
               <Image
                 src="/images/logo.png"
-                alt="Hola Web"
+                alt="Hola Empresa"
                 width={150}
                 height={50}
                 className="h-10 w-auto"
