@@ -94,11 +94,10 @@ export default function HeroSection() {
   };
 
   const handleFullCheck = () => {
-    if (domain.trim()) {
-      router.push(`/verificar?domain=${encodeURIComponent(domain)}`);
-    } else {
-      router.push('/verificar');
-    }
+    // Scroll suave al inicio para buscar otro dominio
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setResult(null);
+    setDomain('');
   };
 
   // Animaciones de entrada con GSAP
@@ -135,6 +134,7 @@ export default function HeroSection() {
 
   return (
     <section 
+      id="verificar"
       className="relative h-[70vh] min-h-[500px] sm:min-h-[550px] md:h-[75vh] overflow-hidden"
     >
       {/* Imagen de fondo */}

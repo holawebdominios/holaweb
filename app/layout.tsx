@@ -30,7 +30,7 @@ export default function RootLayout({
       <body className={manrope.className}>
         <ScrollProgress />
         <Navbar />
-        <main>
+        <main className="min-h-screen">
           {children}
         </main>
         <Footer />

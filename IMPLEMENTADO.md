@@ -52,25 +52,25 @@ He creado el proyecto completo con **42 archivos de código** + **12 archivos de
 - [x] `app/page.tsx` - Página principal
 - [x] `app/layout.tsx` - Layout principal
 - [x] `components/home/HomePageContent.tsx` - Contenedor del home
-- [x] `components/home/sections/HeroSection.tsx` - Hero adaptado
+- [x] `components/home/sections/HeroSection.tsx` - Hero con verificador integrado
 - [x] `components/home/sections/StatsSection.tsx` - Stats adaptadas
 - [x] `components/home/sections/BenefitsSection.tsx` - 6 beneficios
-- [x] `components/home/sections/QuickDomainCheckSection.tsx` - Verificador rápido
+- [x] `components/home/sections/QuickDomainCheckSection.tsx` - Verificador alternativo
 - [x] `components/home/sections/HowItWorksSection.tsx` - 4 pasos
 - [x] `components/home/sections/FeaturedPlansSection.tsx` - Planes destacados
-- [x] `components/home/sections/TestimonialsSection.tsx` - Testimonios
-- [x] `components/home/sections/CTASection.tsx` - CTA final
+- [x] `components/home/sections/TestimonialsSection.tsx` - Testimonios actualizados
+- [x] `components/home/sections/CTASection.tsx` - CTA final actualizado
 
-### ✅ Verificador de Dominios (5 archivos)
-- [x] `app/verificar/page.tsx` - Página del verificador
-- [x] `components/domain-check/DomainCheckPage.tsx` - Contenedor
-- [x] `components/domain-check/DomainSearchForm.tsx` - Formulario de búsqueda
-- [x] `components/domain-check/SearchResults.tsx` - Resultados
-- [x] `components/domain-check/DomainCard.tsx` - Card de dominio
+### ✅ Verificador de Dominios
+- [x] Integrado en Hero Section del home
+- [x] Búsqueda inteligente (detecta TLD automáticamente)
+- [x] Verificación real con RDAP
+- [x] Sin página individual (/verificar eliminada)
 
-### ✅ Planes (3 archivos)
+### ✅ Planes y Checkout (4 archivos)
 - [x] `app/planes/page.tsx` - Página de planes
-- [x] `app/checkout/page.tsx` - Página de checkout (mockup profesional)
+- [x] `app/checkout/page.tsx` - Página de checkout profesional
+- [x] `app/checkout/layout.tsx` - Layout sin navbar/footer
 - [x] `components/pricing/PlansPage.tsx` - Contenido de planes
 
 ### ✅ API Routes (1 archivo)
@@ -195,19 +195,22 @@ hola_web/
 ## 🎨 Características Implementadas
 
 ### Navbar
+✅ Logo imagen (public/images/logo.png)
 ✅ Efecto pill (redondeado cuando no hay scroll)
 ✅ Transición a full-width al hacer scroll
-✅ Links adaptados: Inicio, Verificar, Planes, FAQ, Contacto
+✅ Links adaptados: Inicio, Verificar (scroll), Planes, FAQ, Contacto
 ✅ Indicador de sección activa
 ✅ Menú móvil animado
 ✅ Glassmorphism
 
 ### Hero Section
-✅ Parallax multicapa sofisticado
+✅ Altura optimizada (70vh)
+✅ Sin parallax (mejor performance)
+✅ Verificador integrado con búsqueda inteligente
 ✅ Textos adaptados: "Verificá tu Dominio .AR en Segundos"
-✅ CTAs: "Verificar Dominio" y "Ver Planes"
+✅ Detección automática de TLD
+✅ Botón "Adquirir Dominio" directo a checkout
 ✅ Animaciones GSAP fluidas
-✅ Scroll indicator
 ✅ Totalmente responsive
 
 ### Stats Section
@@ -242,14 +245,15 @@ hola_web/
 ✅ Lista de features
 ✅ CTAs configurables
 
-### Verificador Completo
-✅ Formulario de búsqueda avanzado
+### Verificador
+✅ Integrado en Hero Section (home)
 ✅ Búsqueda inteligente (detecta TLD automáticamente)
-✅ Búsqueda de múltiples dominios
-✅ Cards de resultados simplificados
+✅ Un dominio por búsqueda
+✅ Resultado inline en el Hero
 ✅ Estados: disponible/registrado
-✅ Botones de acción (Adquirir/Gestionar)
-✅ Integración con checkout
+✅ Botón "Adquirir Dominio" → checkout
+✅ Botón "Ver más" → reinicia búsqueda
+✅ Sin página individual (eliminada)
 
 ### Planes Page
 ✅ Hero de planes
@@ -366,9 +370,9 @@ Todos los componentes copiados fueron adaptados:
 - Documentación: 12 archivos
 
 **Páginas funcionando**: 3
-- Home (/)
-- Verificador (/verificar)
+- Home (/) - Con verificador integrado
 - Planes (/planes)
+- Checkout (/checkout)
 
 **Componentes**: 25+
 **Tipos TypeScript**: 15+
@@ -395,12 +399,16 @@ npm run dev
 
 ## 🧠 Búsqueda Inteligente
 
-El usuario puede escribir:
-- **"ejemplo"** → Busca en todas las extensiones .ar
-- **"ejemplo.com.ar"** → Busca solo .com.ar
-- **"ejemplo1, ejemplo2.net.ar"** → Búsqueda múltiple inteligente
+El usuario puede escribir en el Hero:
+- **"ejemplo"** → Busca ejemplo.com.ar (por defecto)
+- **"ejemplo.net.ar"** → Busca solo ejemplo.net.ar
 
-No necesita seleccionar TLDs manualmente. ✨
+**Ventajas:**
+- ✅ No necesita seleccionar TLDs manualmente
+- ✅ Detección automática
+- ✅ UX simplificada
+
+**Nota:** Solo se eliminó la página `/verificar`. El verificador sigue funcionando en el home.
 
 **Disfruta tu proyecto DomainCheck!** 🚀
 

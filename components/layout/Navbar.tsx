@@ -51,7 +51,7 @@ const Navbar = () => {
 
   const navItems = [
     { href: "/", label: "Inicio", id: "" },
-    { href: "/verificar", label: "Verificar", id: "verificar" },
+    { href: "/#verificar", label: "Verificar", id: "verificar" },
     { href: "/planes", label: "Planes", id: "planes" },
     { href: "/faq", label: "FAQ", id: "faq" },
     { href: "/contacto", label: "Contacto", id: "contacto" },

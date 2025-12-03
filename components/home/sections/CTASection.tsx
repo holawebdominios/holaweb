@@ -74,7 +74,7 @@ export default function CTASection({ onWhatsAppClick }: CTASectionProps) {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/verificar">
+            <Link href="/#verificar">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

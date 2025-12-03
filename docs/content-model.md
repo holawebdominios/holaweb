@@ -269,7 +269,7 @@ import { HeroContent, InstitutionalContent, Benefit, HowItWorksStep } from '@/ty
 
 // Hero del Home
 export const homeHero: HeroContent = {
-  title: "Verificá tu Dominio .AR en Segundos",
+  title: "Verificá tu Dominio COM.AR en Segundos",
   subtitle: "Gestión Profesional de Dominios",
   description: "Verificación en tiempo real, recordatorios automáticos y gestión completa de tus dominios argentinos e internacionales.",
   primaryCTA: {

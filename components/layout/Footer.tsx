@@ -9,7 +9,7 @@ const Footer = () => {
 
   const footerLinks = {
     servicios: [
-      { label: 'Verificar Dominios', href: '/verificar' },
+      { label: 'Verificar Dominios', href: '/#verificar' },
       { label: 'Planes y Precios', href: '/planes' },
       { label: 'Preguntas Frecuentes', href: '/faq' },
       { label: 'Contacto', href: '/contacto' },

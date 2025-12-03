@@ -1,7 +1,7 @@
 import { HeroContent, Benefit, HowItWorksStep } from '@/types/content';
 
 export const homeHero: HeroContent = {
-  title: "Verificá tu Dominio .AR",
+  title: "Verificá tu Dominio .COM.AR",
   subtitle: "en Segundos",
   description: "Verificación en tiempo real, recordatorios automáticos y gestión completa de tus dominios argentinos.",
   primaryCTA: {

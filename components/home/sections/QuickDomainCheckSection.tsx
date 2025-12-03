@@ -200,7 +200,7 @@ export default function QuickDomainCheckSection() {
               ))}
               
               <div className="pt-4 flex justify-center">
-                <Link href={`/verificar?domain=${encodeURIComponent(domain)}`}>
+                <Link href="/#verificar">
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
