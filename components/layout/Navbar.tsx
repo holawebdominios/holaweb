@@ -15,6 +15,11 @@ const Navbar = () => {
   const pathname = usePathname();
   const navRef = useRef<HTMLElement>(null);
 
+  // Ocultar navbar en checkout
+  if (pathname === '/checkout') {
+    return null;
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);

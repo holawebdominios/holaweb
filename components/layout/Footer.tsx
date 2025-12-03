@@ -4,8 +4,16 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
 
+import { usePathname } from 'next/navigation';
+
 const Footer = () => {
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
+
+  // Ocultar footer en checkout
+  if (pathname === '/checkout') {
+    return null;
+  }
 
   const footerLinks = {
     servicios: [

@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import { X } from 'lucide-react';
 import { gsap } from 'gsap';
 
@@ -30,6 +31,12 @@ export default function WhatsAppFAB({
   const [showTooltip, setShowTooltip] = useState(false);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const pathname = usePathname();
+
+  // Ocultar en checkout
+  if (pathname === '/checkout') {
+    return null;
+  }
 
   useEffect(() => {
     const handleScroll = () => {

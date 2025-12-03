@@ -1,14 +1,21 @@
 "use client";
 
 import { motion, useScroll, useSpring } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 export default function ScrollProgress() {
+  const pathname = usePathname();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
+
+  // Ocultar en checkout
+  if (pathname === '/checkout') {
+    return null;
+  }
 
   return (
     <motion.div

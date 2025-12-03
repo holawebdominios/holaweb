@@ -2,10 +2,17 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { ArrowUp } from 'lucide-react';
 
 export default function BackToTop() {
   const [isVisible, setIsVisible] = useState(false);
+  const pathname = usePathname();
+
+  // Ocultar en checkout
+  if (pathname === '/checkout') {
+    return null;
+  }
 
   useEffect(() => {
     const handleScroll = () => {
