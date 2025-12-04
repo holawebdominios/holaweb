@@ -52,7 +52,8 @@ export async function getUserByUid(uid: string): Promise<AdminUser | null> {
     return null;
   }
   
-  return doc.data() as AdminUser;
+  const data = doc.data();
+  return data as AdminUser;
 }
 
 /**
@@ -136,7 +137,8 @@ export async function getOrderById(orderId: string, uid?: string): Promise<Admin
     return null;
   }
   
-  const order = { id: doc.id, ...doc.data() } as AdminOrder;
+  const data = doc.data();
+  const order = { id: doc.id, ...data } as AdminOrder;
   
   // Verificar autorización si se proporciona uid
   if (uid && order.userId !== uid) {
@@ -195,10 +197,13 @@ export async function getUserOrders(uid: string): Promise<AdminOrder[]> {
       .get();
     
     // Ordenar en el cliente en lugar de la query
-    const orders: AdminOrder[] = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as AdminOrder));
+    const orders: AdminOrder[] = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data
+      } as AdminOrder;
+    });
     
     // Ordenar por createdAt descendente
     return orders.sort((a, b) => {
@@ -255,10 +260,13 @@ export async function getUserDomains(uid: string): Promise<AdminDomain[]> {
       .get();
     
     // Ordenar en el cliente en lugar de la query
-    const domains: AdminDomain[] = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as AdminDomain));
+    const domains: AdminDomain[] = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data
+      } as AdminDomain;
+    });
     
     // Ordenar por createdAt descendente
     return domains.sort((a, b) => {

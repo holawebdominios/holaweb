@@ -26,10 +26,13 @@ export async function GET(request: NextRequest) {
     // Obtener todos los dominios
     const snapshot = await adminDb!.collection('domains').get();
 
-    const domains: AdminDomain[] = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as AdminDomain));
+    const domains: AdminDomain[] = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data
+      } as AdminDomain;
+    });
 
     // Ordenar por fecha de creación
     domains.sort((a, b) => {

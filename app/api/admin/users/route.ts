@@ -40,10 +40,13 @@ export async function GET(request: NextRequest) {
     // En producción, considera usar Algolia o similar para búsqueda avanzada
     const snapshot = await usersQuery.get();
 
-    let users: AdminUser[] = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as AdminUser));
+    let users: AdminUser[] = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data
+      } as AdminUser;
+    });
 
     // Filtrar por búsqueda (email o nombre)
     if (search) {

@@ -35,7 +35,8 @@ export async function GET(
       return NextResponse.json({ error: 'Usuario no encontrado' }, { status: 404 });
     }
 
-    const user: AdminUser = { id: userDoc.id, ...userDoc.data() } as AdminUser;
+    const userData = userDoc.data();
+    const user: AdminUser = { id: userDoc.id, ...userData } as AdminUser;
 
     // Obtener órdenes del usuario
     const ordersSnapshot = await adminDb!
@@ -43,10 +44,13 @@ export async function GET(
       .where('userId', '==', uid)
       .get();
 
-    const orders: AdminOrder[] = ordersSnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as AdminOrder));
+    const orders: AdminOrder[] = ordersSnapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data
+      } as AdminOrder;
+    });
 
     // Ordenar por fecha
     orders.sort((a, b) => {
@@ -61,10 +65,13 @@ export async function GET(
       .where('userId', '==', uid)
       .get();
 
-    const domains: AdminDomain[] = domainsSnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as AdminDomain));
+    const domains: AdminDomain[] = domainsSnapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data
+      } as AdminDomain;
+    });
 
     // Ordenar por fecha
     domains.sort((a, b) => {

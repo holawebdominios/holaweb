@@ -35,7 +35,8 @@ export async function GET(
       return NextResponse.json({ error: 'Orden no encontrada' }, { status: 404 });
     }
 
-    const order: AdminOrder = { id: orderDoc.id, ...orderDoc.data() } as AdminOrder;
+    const orderData = orderDoc.data();
+    const order: AdminOrder = { id: orderDoc.id, ...orderData } as AdminOrder;
 
     // Obtener información del usuario si existe
     let user: AdminUser | null = null;
@@ -43,7 +44,8 @@ export async function GET(
       try {
         const userDoc = await adminDb.collection('users').doc(order.userId).get();
         if (userDoc.exists) {
-          user = { id: userDoc.id, ...userDoc.data() } as AdminUser;
+          const userData = userDoc.data();
+          user = { id: userDoc.id, ...userData } as AdminUser;
         }
       } catch (err) {
         console.error('Error obteniendo usuario:', err);
@@ -63,7 +65,8 @@ export async function GET(
 
         if (!domainSnapshot.empty) {
           const domainDoc = domainSnapshot.docs[0];
-          domain = { id: domainDoc.id, ...domainDoc.data() } as AdminDomain;
+          const domainData = domainDoc.data();
+          domain = { id: domainDoc.id, ...domainData } as AdminDomain;
         }
       } catch (err) {
         console.error('Error obteniendo dominio:', err);

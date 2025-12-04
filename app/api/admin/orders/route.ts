@@ -44,10 +44,13 @@ export async function GET(request: NextRequest) {
     
     const snapshot = await ordersQuery.get();
 
-    let orders: AdminOrder[] = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as AdminOrder));
+    let orders: AdminOrder[] = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data
+      } as AdminOrder;
+    });
 
     // Filtrar por búsqueda (orderNumber, domain, email)
     if (search) {

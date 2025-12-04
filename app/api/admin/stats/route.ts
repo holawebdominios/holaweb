@@ -34,7 +34,10 @@ export async function GET(request: NextRequest) {
     const totalUsers = usersSnapshot.size;
 
     // Calcular stats de órdenes
-    const orders: AdminOrder[] = ordersSnapshot.docs.map(doc => doc.data() as AdminOrder);
+    const orders: AdminOrder[] = ordersSnapshot.docs.map(doc => {
+      const data = doc.data();
+      return data as AdminOrder;
+    });
     const totalOrders = orders.length;
     const paidOrders = orders.filter(o => o.status === 'paid').length;
     const pendingOrders = orders.filter(o => o.status === 'pending').length;
@@ -44,7 +47,10 @@ export async function GET(request: NextRequest) {
       .reduce((sum, o) => sum + (o.total || 0), 0);
 
     // Calcular stats de dominios
-    const domains: AdminDomain[] = domainsSnapshot.docs.map(doc => doc.data() as AdminDomain);
+    const domains: AdminDomain[] = domainsSnapshot.docs.map(doc => {
+      const data = doc.data();
+      return data as AdminDomain;
+    });
     const activeDomains = domains.filter(d => d.status === 'active').length;
     const expiringDomains = domains.filter(d => {
       if (!d.expirationDate || d.status !== 'active') return false;
@@ -54,21 +60,26 @@ export async function GET(request: NextRequest) {
       return daysUntilExpiration <= 30 && daysUntilExpiration > 0;
     }).length;
 
-    // Órdenes recientes (últimas 5)
-    const recentOrders = orders
+    // Órdenes recientes (últimas 5) con sus IDs
+    const ordersWithIds = ordersSnapshot.docs.map(doc => ({
+      id: doc.id,
+      data: doc.data() as AdminOrder
+    }));
+
+    const recentOrders = ordersWithIds
       .sort((a, b) => {
-        const aTime = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
-        const bTime = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0;
+        const aTime = a.data.createdAt?.toMillis ? a.data.createdAt.toMillis() : 0;
+        const bTime = b.data.createdAt?.toMillis ? b.data.createdAt.toMillis() : 0;
         return bTime - aTime;
       })
       .slice(0, 5)
-      .map(order => ({
-        id: ordersSnapshot.docs.find(doc => doc.data() === order)?.id,
-        orderNumber: order.orderNumber,
-        domain: order.domain,
-        total: order.total,
-        status: order.status,
-        createdAt: order.createdAt,
+      .map(({ id, data }) => ({
+        id,
+        orderNumber: data.orderNumber,
+        domain: data.domain,
+        total: data.total,
+        status: data.status,
+        createdAt: data.createdAt,
       }));
 
     return NextResponse.json({
