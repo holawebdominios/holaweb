@@ -29,7 +29,7 @@ export async function GET(
     const { uid } = params;
 
     // Obtener usuario
-    const userDoc = await adminDb.collection('users').doc(uid).get();
+    const userDoc = await adminDb!.collection('users').doc(uid).get();
 
     if (!userDoc.exists) {
       return NextResponse.json({ error: 'Usuario no encontrado' }, { status: 404 });
@@ -38,7 +38,7 @@ export async function GET(
     const user: AdminUser = { id: userDoc.id, ...userDoc.data() } as AdminUser;
 
     // Obtener órdenes del usuario
-    const ordersSnapshot = await adminDb
+    const ordersSnapshot = await adminDb!
       .collection('orders')
       .where('userId', '==', uid)
       .get();
@@ -56,7 +56,7 @@ export async function GET(
     });
 
     // Obtener dominios del usuario
-    const domainsSnapshot = await adminDb
+    const domainsSnapshot = await adminDb!
       .collection('domains')
       .where('userId', '==', uid)
       .get();

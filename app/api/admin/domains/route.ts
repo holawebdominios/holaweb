@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Obtener todos los dominios
-    const snapshot = await adminDb.collection('domains').get();
+    const snapshot = await adminDb!.collection('domains').get();
 
     const domains: AdminDomain[] = snapshot.docs.map(doc => ({
       id: doc.id,
@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
         let userEmail: string | null = null;
         let userName: string | null = null;
 
-        if (domain.userId) {
+        if (domain.userId && adminDb) {
           try {
             const userDoc = await adminDb.collection('users').doc(domain.userId).get();
             if (userDoc.exists) {

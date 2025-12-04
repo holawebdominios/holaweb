@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
     console.log('[Admin Orders] Query params:', { status, search, sortBy, sortOrder, page, pageSize });
 
     // Obtener órdenes (optimizar con filtro de estado si se proporciona)
-    let ordersQuery = adminDb.collection('orders');
+    let ordersQuery = adminDb!.collection('orders');
     
     // Filtrar por estado en la query si es posible (optimización)
     if (status && status !== 'all') {
@@ -103,7 +103,7 @@ export async function GET(request: NextRequest) {
         let userEmail: string | null = order.metadata?.customerEmail || null;
         let userName: string | null = order.metadata?.customerName || null;
 
-        if (order.userId) {
+        if (order.userId && adminDb) {
           try {
             const userDoc = await adminDb.collection('users').doc(order.userId).get();
             if (userDoc.exists) {

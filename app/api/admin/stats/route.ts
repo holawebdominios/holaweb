@@ -25,9 +25,9 @@ export async function GET(request: NextRequest) {
 
     // Obtener stats en paralelo
     const [usersSnapshot, ordersSnapshot, domainsSnapshot] = await Promise.all([
-      adminDb.collection('users').get(),
-      adminDb.collection('orders').get(),
-      adminDb.collection('domains').get(),
+      adminDb!.collection('users').get(),
+      adminDb!.collection('orders').get(),
+      adminDb!.collection('domains').get(),
     ]);
 
     // Calcular stats de usuarios

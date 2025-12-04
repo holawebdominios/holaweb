@@ -29,7 +29,7 @@ export async function GET(
     const { id } = params;
 
     // Obtener orden
-    const orderDoc = await adminDb.collection('orders').doc(id).get();
+    const orderDoc = await adminDb!.collection('orders').doc(id).get();
 
     if (!orderDoc.exists) {
       return NextResponse.json({ error: 'Orden no encontrada' }, { status: 404 });
@@ -39,7 +39,7 @@ export async function GET(
 
     // Obtener información del usuario si existe
     let user: AdminUser | null = null;
-    if (order.userId) {
+    if (order.userId && adminDb) {
       try {
         const userDoc = await adminDb.collection('users').doc(order.userId).get();
         if (userDoc.exists) {
@@ -52,7 +52,7 @@ export async function GET(
 
     // Obtener dominio asociado si existe
     let domain: AdminDomain | null = null;
-    if (order.userId && order.domain) {
+    if (order.userId && order.domain && adminDb) {
       try {
         const domainSnapshot = await adminDb
           .collection('domains')

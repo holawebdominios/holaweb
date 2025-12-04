@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     console.log('[Admin Users] Query params:', { search, sortBy, sortOrder, page, pageSize });
 
     // Obtener usuarios con límite
-    let usersQuery = adminDb.collection('users');
+    let usersQuery = adminDb!.collection('users');
     
     // Si hay búsqueda, obtener todos y filtrar (Firestore no soporta búsqueda full-text)
     // En producción, considera usar Algolia o similar para búsqueda avanzada
@@ -97,6 +97,15 @@ export async function GET(request: NextRequest) {
 
     const usersWithCounts: UserWithCounts[] = await Promise.all(
       paginatedUsers.map(async (user) => {
+        if (!adminDb) {
+          return {
+            ...user,
+            ordersCount: 0,
+            domainsCount: 0,
+            totalSpent: 0,
+          };
+        }
+
         const [ordersSnap, domainsSnap] = await Promise.all([
           adminDb.collection('orders').where('userId', '==', user.uid).get(),
           adminDb.collection('domains').where('userId', '==', user.uid).get(),
