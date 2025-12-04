@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { extractToken, requireAdmin } from '@/lib/admin-auth';
 import { adminDb } from '@/lib/firebase-admin';
+import { AdminUser, AdminOrder, AdminDomain } from '@/types/firestore-admin';
 
 /**
  * GET /api/admin/users/[uid]
@@ -34,7 +35,7 @@ export async function GET(
       return NextResponse.json({ error: 'Usuario no encontrado' }, { status: 404 });
     }
 
-    const user = { id: userDoc.id, ...userDoc.data() };
+    const user: AdminUser = { id: userDoc.id, ...userDoc.data() } as AdminUser;
 
     // Obtener órdenes del usuario
     const ordersSnapshot = await adminDb
@@ -42,10 +43,10 @@ export async function GET(
       .where('userId', '==', uid)
       .get();
 
-    const orders = ordersSnapshot.docs.map(doc => ({
+    const orders: AdminOrder[] = ordersSnapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
-    }));
+    } as AdminOrder));
 
     // Ordenar por fecha
     orders.sort((a, b) => {
@@ -60,10 +61,10 @@ export async function GET(
       .where('userId', '==', uid)
       .get();
 
-    const domains = domainsSnapshot.docs.map(doc => ({
+    const domains: AdminDomain[] = domainsSnapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
-    }));
+    } as AdminDomain));
 
     // Ordenar por fecha
     domains.sort((a, b) => {

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { extractToken, requireAdmin } from '@/lib/admin-auth';
 import { adminDb } from '@/lib/firebase-admin';
+import { AdminDomain, WithUserInfo } from '@/types/firestore-admin';
 
 /**
  * GET /api/admin/domains
@@ -25,10 +26,10 @@ export async function GET(request: NextRequest) {
     // Obtener todos los dominios
     const snapshot = await adminDb.collection('domains').get();
 
-    const domains = snapshot.docs.map(doc => ({
+    const domains: AdminDomain[] = snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
-    }));
+    } as AdminDomain));
 
     // Ordenar por fecha de creación
     domains.sort((a, b) => {
@@ -38,10 +39,10 @@ export async function GET(request: NextRequest) {
     });
 
     // Agregar información de usuario para cada dominio
-    const domainsWithUsers = await Promise.all(
+    const domainsWithUsers: (AdminDomain & WithUserInfo)[] = await Promise.all(
       domains.map(async (domain) => {
-        let userEmail = null;
-        let userName = null;
+        let userEmail: string | null = null;
+        let userName: string | null = null;
 
         if (domain.userId) {
           try {

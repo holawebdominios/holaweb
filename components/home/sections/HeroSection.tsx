@@ -140,7 +140,7 @@ export default function HeroSection() {
       {/* Imagen de fondo */}
       <div className="absolute inset-0">
         <Image
-          src="https://umavial.com.ar/wp-content/uploads/2017/12/IMG-20171211-WA0016-1.jpg"
+          src="/banner.webp"
           alt="Verificación de Dominios"
           fill
           className="object-cover object-center"

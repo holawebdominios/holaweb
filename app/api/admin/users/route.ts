@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { extractToken, requireAdmin } from '@/lib/admin-auth';
 import { adminDb } from '@/lib/firebase-admin';
+import { AdminUser } from '@/types/firestore-admin';
 
 /**
  * GET /api/admin/users
@@ -39,10 +40,10 @@ export async function GET(request: NextRequest) {
     // En producción, considera usar Algolia o similar para búsqueda avanzada
     const snapshot = await usersQuery.get();
 
-    let users = snapshot.docs.map(doc => ({
+    let users: AdminUser[] = snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
-    }));
+    } as AdminUser));
 
     // Filtrar por búsqueda (email o nombre)
     if (search) {
@@ -88,7 +89,13 @@ export async function GET(request: NextRequest) {
     });
 
     // Obtener conteos SOLO para usuarios de la página actual (optimización)
-    const usersWithCounts = await Promise.all(
+    interface UserWithCounts extends AdminUser {
+      ordersCount: number;
+      domainsCount: number;
+      totalSpent: number;
+    }
+
+    const usersWithCounts: UserWithCounts[] = await Promise.all(
       paginatedUsers.map(async (user) => {
         const [ordersSnap, domainsSnap] = await Promise.all([
           adminDb.collection('orders').where('userId', '==', user.uid).get(),
@@ -97,8 +104,8 @@ export async function GET(request: NextRequest) {
 
         const orders = ordersSnap.docs.map(d => d.data());
         const totalSpent = orders
-          .filter(o => o.status === 'paid')
-          .reduce((sum, o) => sum + (o.total || 0), 0);
+          .filter((o: any) => o.status === 'paid')
+          .reduce((sum: number, o: any) => sum + (o.total || 0), 0);
 
         return {
           ...user,

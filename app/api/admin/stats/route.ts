@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { extractToken, requireAdmin } from '@/lib/admin-auth';
 import { adminDb } from '@/lib/firebase-admin';
+import { AdminOrder, AdminDomain } from '@/types/firestore-admin';
 
 /**
  * GET /api/admin/stats
@@ -33,7 +34,7 @@ export async function GET(request: NextRequest) {
     const totalUsers = usersSnapshot.size;
 
     // Calcular stats de órdenes
-    const orders = ordersSnapshot.docs.map(doc => doc.data());
+    const orders: AdminOrder[] = ordersSnapshot.docs.map(doc => doc.data() as AdminOrder);
     const totalOrders = orders.length;
     const paidOrders = orders.filter(o => o.status === 'paid').length;
     const pendingOrders = orders.filter(o => o.status === 'pending').length;
@@ -43,7 +44,7 @@ export async function GET(request: NextRequest) {
       .reduce((sum, o) => sum + (o.total || 0), 0);
 
     // Calcular stats de dominios
-    const domains = domainsSnapshot.docs.map(doc => doc.data());
+    const domains: AdminDomain[] = domainsSnapshot.docs.map(doc => doc.data() as AdminDomain);
     const activeDomains = domains.filter(d => d.status === 'active').length;
     const expiringDomains = domains.filter(d => {
       if (!d.expirationDate || d.status !== 'active') return false;

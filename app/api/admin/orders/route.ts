@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { extractToken, requireAdmin } from '@/lib/admin-auth';
 import { adminDb } from '@/lib/firebase-admin';
+import { AdminOrder, WithUserInfo } from '@/types/firestore-admin';
 
 /**
  * GET /api/admin/orders
@@ -43,10 +44,10 @@ export async function GET(request: NextRequest) {
     
     const snapshot = await ordersQuery.get();
 
-    let orders = snapshot.docs.map(doc => ({
+    let orders: AdminOrder[] = snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
-    }));
+    } as AdminOrder));
 
     // Filtrar por búsqueda (orderNumber, domain, email)
     if (search) {
@@ -97,10 +98,10 @@ export async function GET(request: NextRequest) {
     });
 
     // Obtener emails de usuarios SOLO para órdenes de la página actual (optimización)
-    const ordersWithUsers = await Promise.all(
+    const ordersWithUsers: (AdminOrder & WithUserInfo)[] = await Promise.all(
       paginatedOrders.map(async (order) => {
-        let userEmail = order.metadata?.customerEmail || null;
-        let userName = order.metadata?.customerName || null;
+        let userEmail: string | null = order.metadata?.customerEmail || null;
+        let userName: string | null = order.metadata?.customerName || null;
 
         if (order.userId) {
           try {

@@ -1,13 +1,15 @@
 import { adminDb } from './firebase-admin';
 import { 
-  User, 
   CreateUserData, 
-  Domain, 
   CreateDomainData, 
-  Order, 
   CreateOrderData,
   OrderStatus 
 } from '@/types/firestore';
+import { 
+  AdminUser, 
+  AdminOrder, 
+  AdminDomain 
+} from '@/types/firestore-admin';
 import { Timestamp } from 'firebase-admin/firestore';
 
 // ============================================
@@ -39,7 +41,7 @@ export async function createUser(uid: string, data: CreateUserData): Promise<voi
 /**
  * Obtiene un usuario por UID
  */
-export async function getUserByUid(uid: string): Promise<User | null> {
+export async function getUserByUid(uid: string): Promise<AdminUser | null> {
   if (!adminDb) {
     throw new Error('Firestore no está configurado');
   }
@@ -50,13 +52,13 @@ export async function getUserByUid(uid: string): Promise<User | null> {
     return null;
   }
   
-  return doc.data() as User;
+  return doc.data() as AdminUser;
 }
 
 /**
  * Actualiza datos de un usuario
  */
-export async function updateUser(uid: string, data: Partial<User>): Promise<void> {
+export async function updateUser(uid: string, data: Partial<AdminUser>): Promise<void> {
   if (!adminDb) {
     throw new Error('Firestore no está configurado');
   }
@@ -123,7 +125,7 @@ export async function createOrder(data: CreateOrderData): Promise<{ id: string; 
  * Obtiene una orden por ID
  * Verifica que pertenezca al usuario si se proporciona uid
  */
-export async function getOrderById(orderId: string, uid?: string): Promise<Order | null> {
+export async function getOrderById(orderId: string, uid?: string): Promise<AdminOrder | null> {
   if (!adminDb) {
     throw new Error('Firestore no está configurado');
   }
@@ -134,7 +136,7 @@ export async function getOrderById(orderId: string, uid?: string): Promise<Order
     return null;
   }
   
-  const order = { id: doc.id, ...doc.data() } as Order;
+  const order = { id: doc.id, ...doc.data() } as AdminOrder;
   
   // Verificar autorización si se proporciona uid
   if (uid && order.userId !== uid) {
@@ -150,7 +152,7 @@ export async function getOrderById(orderId: string, uid?: string): Promise<Order
 export async function updateOrderStatus(
   orderId: string, 
   status: OrderStatus, 
-  updates?: Partial<Order>
+  updates?: Partial<AdminOrder>
 ): Promise<void> {
   if (!adminDb) {
     throw new Error('Firestore no está configurado');
@@ -180,7 +182,7 @@ export async function markOrderAsPaid(orderId: string, paymentId: string): Promi
 /**
  * Obtiene todas las órdenes de un usuario
  */
-export async function getUserOrders(uid: string): Promise<Order[]> {
+export async function getUserOrders(uid: string): Promise<AdminOrder[]> {
   if (!adminDb) {
     console.error('[Firestore] Admin DB no configurado');
     return []; // Devolver array vacío en lugar de error
@@ -193,10 +195,10 @@ export async function getUserOrders(uid: string): Promise<Order[]> {
       .get();
     
     // Ordenar en el cliente en lugar de la query
-    const orders = snapshot.docs.map(doc => ({
+    const orders: AdminOrder[] = snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
-    })) as Order[];
+    } as AdminOrder));
     
     // Ordenar por createdAt descendente
     return orders.sort((a, b) => {
@@ -240,7 +242,7 @@ export async function createDomain(data: CreateDomainData): Promise<string> {
 /**
  * Obtiene todos los dominios de un usuario
  */
-export async function getUserDomains(uid: string): Promise<Domain[]> {
+export async function getUserDomains(uid: string): Promise<AdminDomain[]> {
   if (!adminDb) {
     console.error('[Firestore] Admin DB no configurado');
     return []; // Devolver array vacío en lugar de error
@@ -253,10 +255,10 @@ export async function getUserDomains(uid: string): Promise<Domain[]> {
       .get();
     
     // Ordenar en el cliente en lugar de la query
-    const domains = snapshot.docs.map(doc => ({
+    const domains: AdminDomain[] = snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
-    })) as Domain[];
+    } as AdminDomain));
     
     // Ordenar por createdAt descendente
     return domains.sort((a, b) => {

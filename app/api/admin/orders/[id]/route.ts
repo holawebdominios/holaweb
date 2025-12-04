@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { extractToken, requireAdmin } from '@/lib/admin-auth';
 import { adminDb } from '@/lib/firebase-admin';
+import { AdminUser, AdminOrder, AdminDomain } from '@/types/firestore-admin';
 
 /**
  * GET /api/admin/orders/[id]
@@ -34,15 +35,15 @@ export async function GET(
       return NextResponse.json({ error: 'Orden no encontrada' }, { status: 404 });
     }
 
-    const order = { id: orderDoc.id, ...orderDoc.data() };
+    const order: AdminOrder = { id: orderDoc.id, ...orderDoc.data() } as AdminOrder;
 
     // Obtener información del usuario si existe
-    let user = null;
+    let user: AdminUser | null = null;
     if (order.userId) {
       try {
         const userDoc = await adminDb.collection('users').doc(order.userId).get();
         if (userDoc.exists) {
-          user = { id: userDoc.id, ...userDoc.data() };
+          user = { id: userDoc.id, ...userDoc.data() } as AdminUser;
         }
       } catch (err) {
         console.error('Error obteniendo usuario:', err);
@@ -50,7 +51,7 @@ export async function GET(
     }
 
     // Obtener dominio asociado si existe
-    let domain = null;
+    let domain: AdminDomain | null = null;
     if (order.userId && order.domain) {
       try {
         const domainSnapshot = await adminDb
@@ -62,7 +63,7 @@ export async function GET(
 
         if (!domainSnapshot.empty) {
           const domainDoc = domainSnapshot.docs[0];
-          domain = { id: domainDoc.id, ...domainDoc.data() };
+          domain = { id: domainDoc.id, ...domainDoc.data() } as AdminDomain;
         }
       } catch (err) {
         console.error('Error obteniendo dominio:', err);
