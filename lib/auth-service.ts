@@ -37,7 +37,7 @@ export async function signInWithGoogle(): Promise<FirebaseUser> {
   });
   
   try {
-    const result = await signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth!, provider);
     
     // Después del login, crear/actualizar usuario en Firestore
     await syncUserToFirestore(result.user);
@@ -64,7 +64,7 @@ export async function registerWithEmail(
   checkFirebase();
   
   try {
-    const result = await createUserWithEmailAndPassword(auth, email, password);
+    const result = await createUserWithEmailAndPassword(auth!, email, password);
     
     // Crear usuario en Firestore y vincular dominios si los hay
     await syncUserToFirestore(result.user, { name, isNewUser: true });
@@ -92,7 +92,7 @@ export async function loginWithEmail(email: string, password: string): Promise<F
   checkFirebase();
   
   try {
-    const result = await signInWithEmailAndPassword(auth, email, password);
+    const result = await signInWithEmailAndPassword(auth!, email, password);
     return result.user;
   } catch (error: any) {
     console.error('Error en login:', error);
@@ -116,7 +116,7 @@ export async function signOut(): Promise<void> {
   checkFirebase();
   
   try {
-    await firebaseSignOut(auth);
+    await firebaseSignOut(auth!);
   } catch (error: any) {
     console.error('Error en logout:', error);
     throw new Error(error.message || 'Error al cerrar sesión');
@@ -166,7 +166,7 @@ export function onAuthChange(callback: (user: FirebaseUser | null) => void) {
     return () => {}; // Retornar función vacía para unsubscribe
   }
   
-  return onAuthStateChanged(auth, callback);
+  return onAuthStateChanged(auth!, callback);
 }
 
 // ============================================
