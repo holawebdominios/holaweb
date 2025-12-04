@@ -10,11 +10,12 @@ import BackToTop from '@/components/ui/BackToTop';
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   
-  // NO mostrar layout público en rutas admin
+  // NO mostrar layout público en rutas admin y auth (login/register)
   const isAdminRoute = pathname?.startsWith('/admin');
+  const isAuthRoute = pathname === '/login' || pathname === '/register';
 
-  if (isAdminRoute) {
-    // Rutas admin: solo children (sin navbar/footer público)
+  if (isAdminRoute || isAuthRoute) {
+    // Rutas admin y auth: solo children (sin navbar/footer público)
     return <>{children}</>;
   }
 

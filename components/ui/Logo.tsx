@@ -34,9 +34,9 @@ export default function Logo({ variant = 'default', size = 'md', className }: Lo
       <span className={sizes[size].emoji}>👋</span>
       
       {/* Texto */}
-      <div className={cn(integralCF.className, 'font-bold leading-tight', colors[variant])}>
-        <div className={sizes[size].text}>Hola</div>
-        <div className={sizes[size].text}>Empresa</div>
+      <div className={cn(integralCF.className, 'font-bold text-left', colors[variant])}>
+        <div className={cn(sizes[size].text, 'leading-none')}>Hola</div>
+        <div className={cn(sizes[size].text, 'leading-none')}>Empresa</div>
       </div>
     </div>
   );

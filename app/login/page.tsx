@@ -4,7 +4,7 @@ import { useState, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { integralCF } from '@/styles/fonts';
 import { cn } from '@/lib/utils';
-import { Mail, Lock, Loader2, ArrowLeft } from 'lucide-react';
+import { Mail, Lock, Loader2, ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signInWithGoogle, loginWithEmail } from '@/lib/auth-service';
@@ -57,33 +57,30 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-brand-blue via-brand-blueDark to-gray-900 flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md"
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-lg"
       >
-        {/* Logo y volver */}
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-6">
-            <ArrowLeft className="h-4 w-4" />
-            <span className="text-sm font-medium">Volver al inicio</span>
-          </Link>
-          
-          <div className="mt-4 mb-6 flex justify-center">
-            <Logo variant="default" size="md" />
+        {/* Card principal */}
+        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+          {/* Header con fondo */}
+          <div className="bg-gradient-to-r from-brand-yellow to-brand-yellowDark p-8 text-center">
+            <div className="mb-4 flex justify-center">
+              <Logo variant="white" size="lg" />
+            </div>
+            <h1 className={cn([integralCF.className, "text-4xl font-bold text-white mb-2 leading-tight"])}>
+              Bienvenido
+            </h1>
+            <p className="text-white/90 text-base">
+              Iniciá sesión para gestionar tus dominios
+            </p>
           </div>
-          
-          <h1 className={cn([integralCF.className, "text-3xl font-bold text-gray-900 mb-2"])}>
-            Iniciar Sesión
-          </h1>
-          <p className="text-gray-600">
-            Accedé a tu cuenta para gestionar tus dominios
-          </p>
-        </div>
 
-        {/* Card de login */}
-        <div className="bg-white rounded-2xl shadow-xl p-8">
+          {/* Formulario */}
+          <div className="p-8">
           {/* Botón de Google - Temporalmente oculto
           <button
             onClick={handleGoogleLogin}
@@ -115,19 +112,20 @@ function LoginForm() {
           </div>
           */}
 
-          {/* Formulario de email */}
-          <form onSubmit={handleEmailLogin} className="space-y-4">
+          <form onSubmit={handleEmailLogin} className="space-y-6">
+            {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Email
+              <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                Correo Electrónico
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
+                  id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none transition"
+                  className="w-full pl-12 pr-4 py-3.5 text-base border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-brand-yellow outline-none transition-all"
                   placeholder="tu@email.com"
                   disabled={isLoading || isGoogleLoading}
                   required
@@ -135,60 +133,100 @@ function LoginForm() {
               </div>
             </div>
 
+            {/* Contraseña */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
                 Contraseña
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
+                  id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none transition"
-                  placeholder="Tu contraseña"
+                  className="w-full pl-12 pr-4 py-3.5 text-base border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-brand-yellow outline-none transition-all"
+                  placeholder="••••••••"
                   disabled={isLoading || isGoogleLoading}
                   required
                 />
               </div>
             </div>
 
+            {/* Recordarme y olvidaste contraseña */}
             <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="rounded border-gray-300 text-[brand-yellow] focus:ring-brand-yellow" />
-                <span className="text-gray-600">Recordarme</span>
+              <label className="flex items-center gap-2 cursor-pointer group">
+                <input 
+                  type="checkbox" 
+                  className="w-4 h-4 rounded border-gray-300 text-brand-yellow focus:ring-brand-yellow transition" 
+                />
+                <span className="text-gray-600 group-hover:text-gray-900 transition">Recordarme</span>
               </label>
-              <Link href="/forgot-password" className="text-[brand-yellow] hover:text-[brand-yellowDark] font-medium">
+              <Link 
+                href="/forgot-password" 
+                className="text-brand-yellow hover:text-brand-yellowDark font-semibold transition-colors"
+              >
                 ¿Olvidaste tu contraseña?
               </Link>
             </div>
 
+            {/* Botón de login */}
             <motion.button
               type="submit"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
               disabled={isLoading || isGoogleLoading}
-              className="w-full bg-gradient-to-r from-brand-yellow to-brand-yellowDark text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-brand-blue to-brand-blueDark text-white py-4 rounded-xl text-base font-bold hover:shadow-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {isLoading ? (
                 <>
                   <Loader2 className="h-5 w-5 animate-spin" />
-                  Iniciando sesión...
+                  <span>Iniciando sesión...</span>
                 </>
               ) : (
-                'Iniciar Sesión'
+                <>
+                  <span>Iniciar Sesión</span>
+                  <ArrowRight className="h-5 w-5" />
+                </>
               )}
             </motion.button>
           </form>
 
+          {/* Separador */}
+          <div className="relative my-8">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-200"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-4 bg-white text-gray-500 font-medium">¿Primera vez aquí?</span>
+            </div>
+          </div>
+
           {/* Link a registro */}
-          <div className="mt-6 text-center text-sm text-gray-600">
-            ¿No tenés cuenta?{' '}
-            <Link href="/register" className="text-[brand-yellow] hover:text-[brand-yellowDark] font-semibold">
-              Registrate gratis
+          <div className="text-center">
+            <p className="text-gray-600 text-base mb-3">
+              Creá una cuenta para acceder a todas las funcionalidades
+            </p>
+            <Link 
+              href="/register" 
+              className="inline-block w-full py-3.5 px-6 bg-gray-50 hover:bg-gray-100 text-brand-blue rounded-xl text-base font-bold transition-all border-2 border-gray-200 hover:border-brand-blue"
+            >
+              Registrate Gratis
+            </Link>
+          </div>
+
+          {/* Volver al inicio */}
+          <div className="mt-6 text-center">
+            <Link 
+              href="/" 
+              className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors text-sm font-medium"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              <span>Volver al inicio</span>
             </Link>
           </div>
         </div>
+      </div>
       </motion.div>
     </div>
   );
