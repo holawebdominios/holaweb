@@ -53,7 +53,7 @@ export async function getUserByUid(uid: string): Promise<AdminUser | null> {
   }
   
   const data = doc.data();
-  return data as AdminUser;
+  return data as unknown as AdminUser;
 }
 
 /**
@@ -138,7 +138,7 @@ export async function getOrderById(orderId: string, uid?: string): Promise<Admin
   }
   
   const data = doc.data();
-  const order = { id: doc.id, ...data } as AdminOrder;
+  const order = { id: doc.id, ...data } as unknown as AdminOrder;
   
   // Verificar autorización si se proporciona uid
   if (uid && order.userId !== uid) {
@@ -202,7 +202,7 @@ export async function getUserOrders(uid: string): Promise<AdminOrder[]> {
       return {
         id: doc.id,
         ...data
-      } as AdminOrder;
+      } as unknown as AdminOrder;
     });
     
     // Ordenar por createdAt descendente
@@ -265,7 +265,7 @@ export async function getUserDomains(uid: string): Promise<AdminDomain[]> {
       return {
         id: doc.id,
         ...data
-      } as AdminDomain;
+      } as unknown as AdminDomain;
     });
     
     // Ordenar por createdAt descendente

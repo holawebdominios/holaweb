@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
       return {
         id: doc.id,
         ...data
-      } as AdminOrder;
+      } as unknown as AdminOrder;
     });
 
     // Filtrar por búsqueda (orderNumber, domain, email)

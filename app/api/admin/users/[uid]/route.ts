@@ -36,7 +36,7 @@ export async function GET(
     }
 
     const userData = userDoc.data();
-    const user: AdminUser = { id: userDoc.id, ...userData } as AdminUser;
+    const user: AdminUser = { id: userDoc.id, ...userData } as unknown as AdminUser;
 
     // Obtener órdenes del usuario
     const ordersSnapshot = await adminDb!
@@ -49,7 +49,7 @@ export async function GET(
       return {
         id: doc.id,
         ...data
-      } as AdminOrder;
+      } as unknown as AdminOrder;
     });
 
     // Ordenar por fecha
@@ -70,7 +70,7 @@ export async function GET(
       return {
         id: doc.id,
         ...data
-      } as AdminDomain;
+      } as unknown as AdminDomain;
     });
 
     // Ordenar por fecha

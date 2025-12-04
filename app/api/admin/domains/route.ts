@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
       return {
         id: doc.id,
         ...data
-      } as AdminDomain;
+      } as unknown as AdminDomain;
     });
 
     // Ordenar por fecha de creación

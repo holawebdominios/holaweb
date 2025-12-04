@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
     // Calcular stats de órdenes
     const orders: AdminOrder[] = ordersSnapshot.docs.map(doc => {
       const data = doc.data();
-      return data as AdminOrder;
+      return data as unknown as AdminOrder;
     });
     const totalOrders = orders.length;
     const paidOrders = orders.filter(o => o.status === 'paid').length;
@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
     // Calcular stats de dominios
     const domains: AdminDomain[] = domainsSnapshot.docs.map(doc => {
       const data = doc.data();
-      return data as AdminDomain;
+      return data as unknown as AdminDomain;
     });
     const activeDomains = domains.filter(d => d.status === 'active').length;
     const expiringDomains = domains.filter(d => {
@@ -63,7 +63,7 @@ export async function GET(request: NextRequest) {
     // Órdenes recientes (últimas 5) con sus IDs
     const ordersWithIds = ordersSnapshot.docs.map(doc => ({
       id: doc.id,
-      data: doc.data() as AdminOrder
+      data: doc.data() as unknown as AdminOrder
     }));
 
     const recentOrders = ordersWithIds

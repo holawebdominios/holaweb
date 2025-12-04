@@ -36,7 +36,7 @@ export async function GET(
     }
 
     const orderData = orderDoc.data();
-    const order: AdminOrder = { id: orderDoc.id, ...orderData } as AdminOrder;
+    const order: AdminOrder = { id: orderDoc.id, ...orderData } as unknown as AdminOrder;
 
     // Obtener información del usuario si existe
     let user: AdminUser | null = null;
@@ -45,7 +45,7 @@ export async function GET(
         const userDoc = await adminDb.collection('users').doc(order.userId).get();
         if (userDoc.exists) {
           const userData = userDoc.data();
-          user = { id: userDoc.id, ...userData } as AdminUser;
+          user = { id: userDoc.id, ...userData } as unknown as AdminUser;
         }
       } catch (err) {
         console.error('Error obteniendo usuario:', err);
@@ -66,7 +66,7 @@ export async function GET(
         if (!domainSnapshot.empty) {
           const domainDoc = domainSnapshot.docs[0];
           const domainData = domainDoc.data();
-          domain = { id: domainDoc.id, ...domainData } as AdminDomain;
+          domain = { id: domainDoc.id, ...domainData } as unknown as AdminDomain;
         }
       } catch (err) {
         console.error('Error obteniendo dominio:', err);

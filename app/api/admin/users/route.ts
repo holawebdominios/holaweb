@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
       return {
         id: doc.id,
         ...data
-      } as AdminUser;
+      } as unknown as AdminUser;
     });
 
     // Filtrar por búsqueda (email o nombre)
