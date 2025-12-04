@@ -64,8 +64,8 @@ export async function GET(request: NextRequest) {
 
     // Ordenar ANTES de paginar (más eficiente)
     orders.sort((a, b) => {
-      let aValue = a[sortBy];
-      let bValue = b[sortBy];
+      let aValue = (a as any)[sortBy];
+      let bValue = (b as any)[sortBy];
 
       // Para timestamps
       if (aValue?.toMillis) aValue = aValue.toMillis();
